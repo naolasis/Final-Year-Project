@@ -24,5 +24,8 @@
             <a href="#">Forget Password?</a>
         </div>
     </div>
+    <footer class="footer">
+        <p>Copy Right &copy; 2024 FYPM Inc. All Right Reserved.</p>
+    </footer>
 </body>
 </html>
