@@ -10,10 +10,10 @@
 <body>
     <div class="container">
         <div class="login-header">
-            <div class="logo"><img src="{{asset('assets/images/logo.png')}}" alt="Ambo University Logo"></div>
-            <h1>FYPMS</h1>  
+            <div class="logo"><img src="{{asset('assets/images/logo.png')}}" alt="Ambo University Logo"> <h1>FYPMS</h1>  </div>
         </div>
         <div class="login-form">
+            <div class="invalid-credential">invalid credential</div>
             <form action="">
                 <label for="username">Username</label>
                 <div class="username input"><input class="input-field" type="text" name="username" placeholder="Enter Your Username"></div>
@@ -21,7 +21,7 @@
                 <div class="password input"><input class="input-field" type="password" name="password" placeholder="Password"></div>
                 <div class="submit-btn"><input class="submit" type="submit" value="Login"></div>
             </form>
-            <a href="#">Forget Password?</a>
+            <a href="#">Forgot Password?</a>
         </div>
     </div>
     <footer class="footer">

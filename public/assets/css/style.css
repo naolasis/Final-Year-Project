@@ -5,25 +5,31 @@
     font-family: sans-serif;
 }
 body {
+    margin: 0;
     background-color: #ECECEC;
 }
 img{
     width: 60px;
     max-width: 100%;
+    margin-right: .4rem;
 }
 
 h1 {
     font-size: 1.7rem;
     color: #352F44;
     letter-spacing: 5px;
+    align-self: center;
+    margin-top: 2rem;
 }
 .container {
     width: 90%;
     max-width: 500px;
     margin: 0 auto;
 }
-.login-header{
-    text-align: center;
+.logo{
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0;
 }
 .login-form{
     padding: 2.5rem;
@@ -73,6 +79,7 @@ label {
     background: #fff;
     color: #111827;
     border: 1px solid #111827;
+    cursor: pointer;
 }
 
 .submit-btn{
@@ -86,6 +93,10 @@ a{
     letter-spacing: 2px;
     font-size: 14px;
 }
+a:hover,
+a:focus{
+    opacity: .6;
+}
 
 .footer {
     margin: 4rem 0 0 0;
@@ -94,4 +105,12 @@ a{
     color: #111827;
     text-align: center;
     font-size: .8rem;
+}
+.invalid-credential{
+    margin: 0 0 1rem 0;
+    text-align: center;
+    background-color: #ffebe8;
+    color: #721c24;
+    padding: 1rem 0;
+    border-radius: 10px;
 }
