@@ -1,14 +1,45 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Outfit:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&display=swap');
+
+
 :root {
     --main-font: "Roboto", sans-serif;
+    --outfit-font: "Outfit", sans-serif;
+    --oswald-font: "Oswald", sans-serif;
+    --montserrat-font: "Montserrat", sans-serif;
+
     --main-bg-color: #ECECEC;
-    --primary-color: #352F44;
-    --secondary-color: #8594E4;
-    --button-bg-color: #111827;
-    --button-text-color: white;
     --sidebar-bg-color: #333;
+    --blue-btn-color: #0072BC;
+    --button-bg-color: #111827;
+    --secendory-header-bg-color: #DBD8E3;
+    --notification-color: #DC2F2F;
+    --notification-bg-color: #A7BCB9;
+    --success-bg-color:  #edf3db;
+    --error-bg-color:  #ffebe8;
+
+    --error-color: #721c24;
+    --success-color: #1c721c;
+    --header-color: #132743;
+    --black-color: #000000;
+    --secendory-header-color: #352F44;
+    --green-color: #0CA909;
+    --link-color: #8594E4;
+    --button-text-color: white;
+
+    --committee-bg-color: #27296D;
+    --group-bg-color: #8A1253;
+    --student-bg-color: #007CB9;
+    --advisor-bg-color: #004445;
+
+    --gray-icon-color: #DBD8E3;
+    --dark-icon-color: #352F44;
+    --light-icon-color: #FFFFFF;
+    --input-icon-color: #5C5470;
+
     --box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.154);
     --transition-speed: 0.3s;
 }
@@ -31,7 +62,7 @@ img{
 
 h1 {
     font-size: 1.7rem;
-    color: var(--primary-color);
+    color: var(--header-color);
     letter-spacing: 5px;
     align-self: center;
     margin-top: 2rem;
@@ -50,18 +81,18 @@ h1 {
     padding: 2.5rem;
     background-color: white;
     border-radius: 15px;
-    box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.154);
+    box-shadow: var(--box-shadow);
 }
 
 label {
-    color: var(--primary-color);
+    color: #352F44;
     font-weight: 600;
 }
 
 .input {
     margin: .5rem 0 .75rem 0;
     padding: .75rem;
-    background-color: #ECECEC;
+    background-color: var(--main-bg-color);
     border-radius: 15px;
     border: .5px solid #8594E4;
     box-shadow: 1px 2px 3px rgba(15, 15, 15, 0.637);
@@ -69,9 +100,9 @@ label {
     display:flex;
     justify-content: space-between;
 }
-svg{
+.input svg{
     width: 16px;
-    color: #5C5470;
+    color: var(--input-icon-color);
 }
 
 .input:focus-within {
@@ -81,14 +112,14 @@ svg{
 .input-field{
     border: none;
     outline: none;
-    background-color: #ECECEC;
+    background-color: var(--main-bg-color);
     width: 100%;
 }
 
 .submit{
     outline: none;
     border: 1px solid transparent;
-    background: #111827;
+    background: var(--button-bg-color);
     padding: .8rem 2rem;
     color: white;
     border-radius: 15px;
@@ -98,7 +129,7 @@ svg{
 .submit:hover,
 .submit:hover {
     background: #fff;
-    color: #111827;
+    color: var(--button-bg-color);
     border: 1px solid #111827;
     cursor: pointer;
 }
@@ -110,7 +141,7 @@ svg{
 
 a{
     text-decoration: none;
-    color: #8594E4;
+    color: var(--link-color);
     letter-spacing: 2px;
     font-size: 14px;
 }
@@ -123,15 +154,15 @@ a:focus{
     margin: 4rem 0 0 0;
     background-color: #f0f0f0;
     border-top: 1px solid #ccc;
-    color: var(--primary-color);
+    color: #352F44;
     text-align: center;
     font-size: .8rem;
 }
 .invalid-credential{
     margin: 0 0 1rem 0;
     text-align: center;
-    background-color: #ffebe8;
-    color: #721c24;
+    background-color: var(--error-bg-color);
+    color: var(--error-color);
     padding: 1rem 0;
     border-radius: 10px;
 }
