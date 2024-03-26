@@ -1,12 +1,27 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Outfit:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+:root {
+    --main-font: "Roboto", sans-serif;
+    --main-bg-color: #ECECEC;
+    --primary-color: #352F44;
+    --secondary-color: #8594E4;
+    --button-bg-color: #111827;
+    --button-text-color: white;
+    --sidebar-bg-color: #333;
+    --box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.154);
+    --transition-speed: 0.3s;
+}
+
 *,
 *::before,
 *::after {
     box-sizing: border-box;
-    font-family: sans-serif;
+    font-family: var(--main-font);
 }
 body {
     margin: 0;
-    background-color: #ECECEC;
+    background-color: var(--main-bg-color);
 }
 img{
     width: 60px;
@@ -16,7 +31,7 @@ img{
 
 h1 {
     font-size: 1.7rem;
-    color: #352F44;
+    color: var(--primary-color);
     letter-spacing: 5px;
     align-self: center;
     margin-top: 2rem;
@@ -39,7 +54,7 @@ h1 {
 }
 
 label {
-    color: #352F44;
+    color: var(--primary-color);
     font-weight: 600;
 }
 
@@ -108,7 +123,7 @@ a:focus{
     margin: 4rem 0 0 0;
     background-color: #f0f0f0;
     border-top: 1px solid #ccc;
-    color: #111827;
+    color: var(--primary-color);
     text-align: center;
     font-size: .8rem;
 }
