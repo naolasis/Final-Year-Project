@@ -9,6 +9,7 @@
 </head>
 <body>
 @include('layouts.header')
+@include('layouts.counter')
 
     @yield('content')
     
