@@ -27,7 +27,7 @@
                 </div>
                 <div class="submit-btn"><input class="submit" type="submit" value="Login"></div>
             </form>
-            <a href="#">Forgot Password?</a>
+            <a class="forget-password" href="#">Forgot Password?</a>
         </div>
     </div>
     @include('layouts.footer')
