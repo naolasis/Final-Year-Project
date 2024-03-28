@@ -9,11 +9,17 @@
 </head>
 <body>
 @include('layouts.header')
-@include('layouts.sidebar')
-@include('layouts.counter')
+<div class="test-class">
+    @include('layouts.sidebar')
+    <div class="test-class2">
+        @include('layouts.counter')
+        
+            @yield('content')
+        
+        @include('layouts.footer')
+    </div>
+</div>
 
-    @yield('content')
-    
-@include('layouts.footer')
+<script src="{{asset('assets/js/script.js')}}"></script>
 </body>
 </html>

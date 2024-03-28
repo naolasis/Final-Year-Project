@@ -168,7 +168,7 @@ a:focus{
     color: #352F44;
     text-align: center;
     font-size: .8rem;
-    position: fixed;
+    position: absolute;
     bottom:0;
     width: 100%;
 }
@@ -313,6 +313,12 @@ header{
     width: 250px;
     height: 100vh;
     color: var(--gray-icon-color);
+    position: absolute;
+    left: -250px;
+    transition: 0.5s ease;
+}
+.side-bar-hide{
+    left: 0;
 }
 .side-bar-head{
     padding: 10px 0 20px 10px;
@@ -384,4 +390,30 @@ ul{
 
 .left-angle-icon{
     align-self: flex-end;
+}
+
+
+.test-class{
+    border: 3px solid green;
+    position: absolute;
+    top: 73px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    min-width: 100%;
+    overflow: hidden;
+
+    
+}
+.test-class2{
+    border: 3px solid red;
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-height: 100%;
+    width: 100%;
+    transition: 0.5s ease;
+}
+.test-class-vissible{
+    left: 250px;
 }
