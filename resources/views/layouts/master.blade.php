@@ -10,10 +10,9 @@
 <body>
 @include('layouts.header')
 <div class="body-container">    
-    @include('layouts.sidebar')
+    @include('side-bars.sidebar')
     <div class="body-element-container">
-        @include('layouts.counter')
-        
+        @yield('counter')
             @yield('content')
         
         @include('layouts.footer')
