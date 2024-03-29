@@ -9,9 +9,9 @@
 </head>
 <body>
 @include('layouts.header')
-<div class="test-class">
+<div class="body-container">    
     @include('layouts.sidebar')
-    <div class="test-class2">
+    <div class="body-element-container">
         @include('layouts.counter')
         
             @yield('content')

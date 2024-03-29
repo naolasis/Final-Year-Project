@@ -177,7 +177,7 @@ a:focus{
 /*---------header--------*/
 header{
     background: #FAFAFA;
-    padding: .8rem 0;
+    padding: .2rem 0;
     box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.154);
 }
 .row{
@@ -201,20 +201,37 @@ header{
 }
 
 .notification{
-    width:40px;
-    height:40px;
-    text-align: center;
+    width: 30px;
+    height:30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: .5rem;
     background: var(--notification-bg-color);
     border-radius: 50%;
+    position: relative;
 }
+
+.notification::after {
+    content: '';
+    width: 7px;
+    height: 7px;
+    background-color: var(--notification-color);
+    border-radius: 50px;
+    position: absolute;
+    top: 0;
+    left: 21px;
+    /* transform: translate(6px, -6px) */
+}
+
 .notification svg{
-    width: 20px;
+    width: 18px;
     color: var(--dark-icon-color);
 }
 
 .logout svg{
-    width: 30px;
+    width: 22px;
+    vertical-align: bottom;
     color: var(--dark-icon-color);
 }
 
@@ -222,9 +239,10 @@ header{
 .nav-toggle {
     cursor: pointer;    
     border: 0;
-    width: 3rem;
-    height: 3rem;
+    width: 2.5rem;
+    height: 2.5rem;
     padding: 0em;
+    margin-top: .3rem;
     border-radius: 50%;
     background: var(--main-bg-color);
     color: var(--dark-icon-color);
@@ -244,7 +262,7 @@ header{
 .hamburger::after {
     display: block;
     margin: 0 auto;
-    height: 3px;
+    height: 2.5px;
     background: var(--dark-icon-color);
 }
 .hamburger::before,
@@ -386,27 +404,39 @@ ul{
 .inner-list{
     list-style: disc;
     margin-left: 1.6rem;
+    transition: transform .3s ease;
+    display: none;
+}
+
+.inner-list-visible {
+    display: block;
 }
 
 .left-angle-icon{
     align-self: flex-end;
+    transition: transform 0.3s ease; 
+}
+
+/* Rotate the arrow icon when the list is expanded */
+.left-angle-icon-rotate {
+    transform: rotate(-90deg);
 }
 
 
-.test-class{
-    border: 3px solid green;
+.body-container{
+    /* border: 3px solid green; */
     position: absolute;
-    top: 73px;
+    top: 49px;
     left: 0;
     bottom: 0;
     right: 0;
     min-width: 100%;
     overflow: hidden;
-
-    
+    z-index: -10;   
 }
-.test-class2{
-    border: 3px solid red;
+
+.body-element-container{
+    /* border: 3px solid red; */
     position: absolute;
     top: 0;
     left: 0;
@@ -414,6 +444,7 @@ ul{
     width: 100%;
     transition: 0.5s ease;
 }
-.test-class-vissible{
+.body-element-container-vissible{
     left: 250px;
+    /* for media query => width: 80.5%; */
 }
