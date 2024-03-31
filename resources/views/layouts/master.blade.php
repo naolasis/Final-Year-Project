@@ -13,7 +13,12 @@
     @include('side-bars.sidebar')
     <div class="body-element-container">
         @yield('counter')
+
+        <div class="content-container">
+            
             @yield('content')
+
+        </div>
         
         @include('layouts.footer')
     </div>

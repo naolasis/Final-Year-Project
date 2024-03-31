@@ -42,6 +42,8 @@
 
     --box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.154);
     --transition-speed: 0.3s;
+
+    --text-center: center;
 }
 
 *,
@@ -162,14 +164,13 @@ a:focus{
 
 /* --------footer--------- */
 .footer {
-    margin: 4rem 0 0 0;
     background-color: #f0f0f0;
     border-top: 1px solid #ccc;
     color: #352F44;
     text-align: center;
     font-size: .8rem;
     position: absolute;
-    bottom:0;
+    bottom: 0;
     width: 100%;
 }
 
@@ -438,7 +439,7 @@ ul{
     right: 0;
     min-width: 100%;
     overflow: hidden;
-    z-index: -10;   
+    z-index: -10;
 }
 
 .body-element-container{
@@ -448,25 +449,104 @@ ul{
     left: 0;
     min-height: 100%;
     width: 100%;
+    overflow: auto;
     transition: 0.5s ease;
 }
-.body-element-container-smash{
-    left: 250px;
-    /* for media query => width: 80.5%; */
+
+.content-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
 }
 
+.body-element-container-smash{
+    left: 250px;
+}
+
+/* form for manage committee */
+
 .form-container{
-    width: 80%;
-    margin: 0 auto;
-    border: 4px solid black;
-    height: 300px;
+    width: 90%;
+    margin: 1rem auto;
+    max-width: 700px;
+    min-height: 100%;
+    margin-bottom: 3rem;
 }
+
 .button-container{
+    margin: 0;
+    padding: .9rem 0;
+    box-shadow: 0 5px 4px rgba(0, 0, 0, 0.154);
+}
+
+.ms-button{
+    margin: 0;
+    padding: .9rem .4rem;
+    background: var(--light-icon-color);
+    border-radius: 10px 10px 0 0;
+    color: var(--dark-icon-color);
+}
+
+.ms-button{
+    text-decoration: none;
+}
+.ms-button:focus{
+    background: transparent;
+}
+
+.add-committee-form{
+    margin-top: 1rem;
+    background: var(--light-icon-color);
+    border-radius: 10px 10px 0 0;
+    display: none;
+}
+
+.modify-committee-form{
+    margin-top: 1rem;
+    background: var(--light-icon-color);
+    border-radius: 10px 10px 0 0;
+    display: none;
+}
+
+.manage-committee-form-visible{
+    display: block;
+}
+
+.manage-status{
+    background: #DBD8E3;
+    padding: .7rem 0;
+    border-radius: 10px 10px 0 0;
+    text-align: var(--text-center);
+}
+.input-container{
     width: 80%;
     margin: 0 auto;
-    border: 4px solid black;
-    height: 50px;
+    padding-bottom: 0.05rem;
 }
+
+.form-input {
+    margin: .5rem 0 .75rem 0;
+    padding: .65rem;
+    background-color: var(--light-icon-color);
+    border-radius: 8px;
+    border: 2px solid #757A79;
+    transition: .7s;
+}
+.form-input-field{
+    border: none;
+    outline: none;
+    background-color: var(--light-icon-color);
+    width: 100%;
+}
+.form-input:focus-within {
+    border: 2px solid var(--blue-btn-color);
+}
+
 
 @media (min-width: 730px) {
     .side-bar{
