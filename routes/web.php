@@ -13,25 +13,18 @@ Route::get('/', function () {
     return view('login');
 });
 
-Route::get('/admin', function () {
-    return view('admin.dashboard');
-});
 
-Route::get('/committee_head', function () {
-    return view('committee_head.dashboard');
-});
-
-Route::get('/admin_dashboard',[AdminController::class, 'dashboard'])->name('admin_dashboard');
+Route::get('/admin',[AdminController::class, 'dashboard'])->name('admin');
 Route::get('/manage_committee', [AdminController::class, 'manageCommittee'])->name('manage_committee');
 
 
-Route::get('/committee_head_dashboard', [CommitteeHeadController::class, 'dashboard'])->name('committee_head_dashboard');
+Route::get('/committee_head', [CommitteeHeadController::class, 'dashboard'])->name('committee_head');
 
 
-Route::get('/committee_member_dashboard', [CommitteeMemberController::class, 'dashboard'])->name('committee_member_dashboard');
+Route::get('/committee_member', [CommitteeMemberController::class, 'dashboard'])->name('committee_member');
 
 
-Route::get('/advisor_dashboard', [AdvisorController::class , 'dashboard'])->name('advisor_dashboard');
+Route::get('/advisor', [AdvisorController::class, 'dashboard'])->name('advisor');
 
 
-Route::get('/student_dashboard', [StudentController::class , 'dashboard'])->name('student_dashboard');
+Route::get('/student', [StudentController::class, 'dashboard'])->name('student');
