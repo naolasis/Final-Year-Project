@@ -12,9 +12,9 @@
 <div class="body-container">    
     @include('side-bars.sidebar')
     <div class="body-element-container">
-        @yield('counter')
-
+        
         <div class="content-container">
+            @yield('counter')
             
             @yield('content')
 

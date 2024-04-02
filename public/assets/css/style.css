@@ -550,19 +550,14 @@ ul{
 
 /* ------------notice board--------------- */
 .notice-container{
-    border: 1px solid black;
     border-radius: 5px;
     width: 90%;
-    margin: 0 auto;
-    max-width: 400px;
+    margin: 10px auto 0 auto;
+    max-width: 450px;
     display: flex;
     align-items: center;
     height: 100px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
+
 }
 .notice-icon{
     background-color: var(--student-bg-color);
@@ -611,6 +606,7 @@ ul{
     font-size: 1rem;
     margin:0 .3rem 0 0;
 }
+
 
 @media (min-width: 730px) {
     .side-bar{
