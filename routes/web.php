@@ -28,13 +28,21 @@ Route::get('/view_report', [CommitteeHeadController::class, 'viewReport'])->name
 Route::get('/upload_result', [CommitteeHeadController::class, 'uploadResult'])->name('upload_result');
 
 
-
-
-
 Route::get('/committee_member', [CommitteeMemberController::class, 'dashboard'])->name('committee_member');
+Route::get('/manage_advisor', [CommitteeMemberController::class, 'manageAdvisor'])->name('manage_advisor');
+Route::get('/manage_student', [CommitteeMemberController::class, 'manageStudent'])->name('manage_student');
+Route::get('/view_group', [CommitteeMemberController::class, 'viewGroup'])->name('view_group');
+Route::get('/manage_notice', [CommitteeMemberController::class, 'manageNotice'])->name('manage_notice');
+Route::get('/view_report', [CommitteeMemberController::class, 'viewReport'])->name('view_report');
 
 
 Route::get('/advisor', [AdvisorController::class, 'dashboard'])->name('advisor');
+Route::get('/view_notice', [AdvisorController::class, 'viewNotice'])->name('view_notice');
+Route::get('/view_group', [AdvisorController::class, 'viewGroup'])->name('view_group');
+Route::get('/view_report', [AdvisorController::class, 'viewReport'])->name('view_report');
+Route::get('/forum', [AdvisorController::class, 'forum'])->name('forum');
+
+
 
 
 Route::get('/student', [StudentController::class, 'dashboard'])->name('student');

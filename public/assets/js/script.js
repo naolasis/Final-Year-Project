@@ -64,3 +64,4 @@ const modifyCommitteeForm = document.querySelector('.modify-committee-form');
         addCommittee.style.backgroundColor = "white";
     })
 
+
