@@ -551,28 +551,53 @@ ul{
 /* ------------notice board--------------- */
 .notice-container{
     border: 1px solid black;
-    width: 40%;
+    border-radius: 5px;
+    width: 90%;
     margin: 0 auto;
     max-width: 400px;
     display: flex;
     align-items: center;
-
+    height: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
 }
 .notice-icon{
-    border: 2px solid red;
     background-color: var(--student-bg-color);
-    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.16) ;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15) ;
     border-radius: 5px;
-    width: 25%;
+    width: 30%;
+    text-align: center;
+    padding: .3rem;
+    z-index: 1;
 }
 .notice-icon svg {
     fill: white; 
 }
 .notice-content{
-    border: 3px solid blue;
-    width: 75%;
+    width: 70%;
+    background-color: var(--light-icon-color);
+    border-radius: 0 5px 5px 0;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15) ;
+
 }
+
+.notice-content h5 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-family: var(--outfit-font);
+    font-weight: normal;
+    color: var(--header-color);
+    padding:.2rem .5rem;
+}
+.notice-content h5:first-of-type {
+    font-weight: bold;
+}
+
 .notice-button{
+    padding: .2rem;
     background: var(--gray-icon-color);
 }
 .notice-link{
@@ -584,7 +609,7 @@ ul{
 }
 .notice-link h6{
     font-size: 1rem;
-    margin-right: .3rem;
+    margin:0 .3rem 0 0;
 }
 
 @media (min-width: 730px) {
