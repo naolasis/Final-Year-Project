@@ -8,7 +8,7 @@
         <div><a class="modify-committee ms-button" href="#">Modify Student's</a></div>
     </div>
     <form action="#" class="add-committee-form">
-        <div class="manage-status">Create Advisor's</div>
+        <div class="manage-status">Create Student's</div>
         <div class="input-container">
             <div class="submit-btn"><label for="files"></label>Upload Student's Excell File </div>
             <div class="form-input"><input class="form-input-field" id="files" type="file" name="file" accept=".xlsx, .xls"></div>

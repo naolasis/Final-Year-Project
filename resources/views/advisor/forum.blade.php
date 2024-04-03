@@ -24,7 +24,7 @@
     bottom: 0;
     right: 0;
     width: 100%;
-    height: 70%;
+    height: 68%;
 }  
 .forum{
     margin: 0 auto;
@@ -49,10 +49,11 @@
     padding-bottom: 0.05rem;
 }
 
-.form-post {
-    border: 2px solid blue;
+.forum-post {
+    background: #ECECEC;
+    border-radius: 10px;
     font-size: .9rem;
-    margin: .5rem;
+    margin: .4rem .5rem 1rem .5rem;
     padding: .3rem;
     display: flex;
     flex-direction: row;
@@ -60,7 +61,6 @@
 }
 
 .forum-post-profile {
-    border: 2px solid brown;
     width: 3rem; 
     min-width: 3rem;
     height: 3rem; 
@@ -80,10 +80,7 @@
     border-radius: 5px; 
 }
 
-
-
 .forum-post-data {
-    border: 2px solid green;
     display: flex;
     flex-direction: column;
     font-size: .8rem;
@@ -111,7 +108,7 @@
         <form action="#" class="add-committee-form" style="display: block;">
      
             <div class="forum-section">
-                <div class="form-post">
+                <div class="forum-post">
                     <div class="forum-post-profile">
                         <img src="" alt="pic">
                     </div>
@@ -125,7 +122,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-post">
+                <div class="forum-post">
                     <div class="forum-post-profile">
                         <img src="" alt="pic">
                     </div>
@@ -137,7 +134,7 @@
                         <div class="forum-post-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro nobis ipsum minus distinctio modi culpa aliquam velit dolore a quis? The form post message!</div>
                     </div>
                 </div>
-                <div class="form-post">
+                <div class="forum-post">
                     <div class="forum-post-profile">
                         <img src="" alt="pic">
                     </div>
@@ -149,7 +146,7 @@
                         <div class="forum-post-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consectetur eligendi distinctio nam natus. Corporis a consequuntur temporibus inventore nesciunt ad voluptas quam dicta fuga explicabo? The form post message!</div>
                     </div>
                 </div>
-                <div class="form-post">
+                <div class="forum-post">
                     <div class="forum-post-profile">
                         <img src="" alt="pic">
                     </div>
@@ -161,7 +158,7 @@
                         <div class="forum-post-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consectetur eligendi distinctio nam natus. Corporis a consequuntur temporibus inventore nesciunt ad voluptas quam dicta fuga explicabo? The form post message!</div>
                     </div>
                 </div>
-                <div class="form-post">
+                <div class="forum-post">
                     <div class="forum-post-profile">
                         <img src="" alt="pic">
                     </div>
@@ -178,11 +175,11 @@
      </div>
      
      <div class="forum-top-bottom username login-input">
-        <textarea class="login-input-field" placeholder="Type your message..." name="post_content" rows="2" cols="50"></textarea>
+        <input type="text" class="login-input-field" placeholder="Type your message...">
         <a class="forum-send-icon" href="#">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M498.1 5.6c10.1 7 15.4 19.1 13.5 31.2l-64 416c-1.5 9.7-7.4 18.2-16 23s-18.9 5.4-28 1.6L284 427.7l-68.5 74.1c-8.9 9.7-22.9 12.9-35.2 8.1S160 493.2 160 480V396.4c0-4 1.5-7.8 4.2-10.7L331.8 202.8c5.8-6.3 5.6-16-.4-22s-15.7-6.4-22-.7L106 360.8 17.7 316.6C7.1 311.3 .3 300.7 0 288.9s5.9-22.8 16.1-28.7l448-256c10.7-6.1 23.9-5.5 34 1.4z"/></svg>
         </a>
      </div>
  </div>
-@endsection
+@endsection 
 @include('side-bars.advisor_side_bar')
