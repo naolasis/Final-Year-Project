@@ -17,11 +17,11 @@
             @yield('counter')
             
             @yield('content')
+
+            @yield('forum')
+            
         </div>
 
-        <div class="forum-container">
-            @yield('forum')
-        </div>
         
         @include('layouts.footer')
     </div>

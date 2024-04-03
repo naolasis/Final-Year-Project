@@ -14,35 +14,43 @@ Route::get('/', function () {
 });
 
 
-Route::get('/admin',[AdminController::class, 'dashboard'])->name('admin');
-Route::get('/manage_committee', [AdminController::class, 'manageCommittee'])->name('manage_committee');
+Route::prefix('admin')->group(function () {
+    Route::get('/', [AdminController::class, 'dashboard'])->name('admin');
+    Route::get('/manage_committee', [AdminController::class, 'manageCommittee'])->name('admin.manage_committee');
+});
 
+Route::prefix('committee_head')->group(function () {
+    Route::get('/', [CommitteeHeadController::class, 'dashboard'])->name('committee_head');
+    Route::get('/manage_advisor', [CommitteeHeadController::class, 'manageAdvisor'])->name('committee_head.manage_advisor');
+    Route::get('/manage_student', [CommitteeHeadController::class, 'manageStudent'])->name('committee_head.manage_student');
+    Route::get('/view_group', [CommitteeHeadController::class, 'viewGroup'])->name('committee_head.view_group');
+    Route::get('/manage_policy', [CommitteeHeadController::class, 'managePolicy'])->name('committee_head.manage_policy');
+    Route::get('/manage_notice', [CommitteeHeadController::class, 'manageNotice'])->name('committee_head.manage_notice');
+    Route::get('/view_report', [CommitteeHeadController::class, 'viewReport'])->name('committee_head.view_report');
+    Route::get('/upload_result', [CommitteeHeadController::class, 'uploadResult'])->name('committee_head.upload_result');
+});
 
-Route::get('/committee_head', [CommitteeHeadController::class, 'dashboard'])->name('committee_head');
-Route::get('/manage_advisor', [CommitteeHeadController::class, 'manageAdvisor'])->name('manage_advisor');
-Route::get('/manage_student', [CommitteeHeadController::class, 'manageStudent'])->name('manage_student');
-Route::get('/view_group', [CommitteeHeadController::class, 'viewGroup'])->name('view_group');
-Route::get('/manage_policy', [CommitteeHeadController::class, 'managePolicy'])->name('manage_policy');
-Route::get('/manage_notice', [CommitteeHeadController::class, 'manageNotice'])->name('manage_notice');
-Route::get('/view_report', [CommitteeHeadController::class, 'viewReport'])->name('view_report');
-Route::get('/upload_result', [CommitteeHeadController::class, 'uploadResult'])->name('upload_result');
+Route::prefix('committee_member')->group(function () {
+    Route::get('/', [CommitteeMemberController::class, 'dashboard'])->name('committee_member');
+    Route::get('/manage_advisor', [CommitteeMemberController::class, 'manageAdvisor'])->name('committee_member.manage_advisor');
+    Route::get('/manage_student', [CommitteeMemberController::class, 'manageStudent'])->name('committee_member.manage_student');
+    Route::get('/view_group', [CommitteeMemberController::class, 'viewGroup'])->name('committee_member.view_group');
+    Route::get('/manage_notice', [CommitteeMemberController::class, 'manageNotice'])->name('committee_member.manage_notice');
+    Route::get('/view_report', [CommitteeMemberController::class, 'viewReport'])->name('committee_member.view_report');
+});
 
+Route::prefix('advisor')->group(function () {
+    Route::get('/', [AdvisorController::class, 'dashboard'])->name('advisor');
+    Route::get('/view_notice', [AdvisorController::class, 'viewNotice'])->name('advisor.view_notice');
+    Route::get('/view_group', [AdvisorController::class, 'viewGroup'])->name('advisor.view_group');
+    Route::get('/view_report', [AdvisorController::class, 'viewReport'])->name('advisor.view_report');
+    Route::get('/forum', [AdvisorController::class, 'forum'])->name('advisor.forum');
+});
 
-Route::get('/committee_member', [CommitteeMemberController::class, 'dashboard'])->name('committee_member');
-Route::get('/manage_advisor', [CommitteeMemberController::class, 'manageAdvisor'])->name('manage_advisor');
-Route::get('/manage_student', [CommitteeMemberController::class, 'manageStudent'])->name('manage_student');
-Route::get('/view_group', [CommitteeMemberController::class, 'viewGroup'])->name('view_group');
-Route::get('/manage_notice', [CommitteeMemberController::class, 'manageNotice'])->name('manage_notice');
-Route::get('/view_report', [CommitteeMemberController::class, 'viewReport'])->name('view_report');
-
-
-Route::get('/advisor', [AdvisorController::class, 'dashboard'])->name('advisor');
-Route::get('/view_notice', [AdvisorController::class, 'viewNotice'])->name('view_notice');
-Route::get('/view_group', [AdvisorController::class, 'viewGroup'])->name('view_group');
-Route::get('/view_report', [AdvisorController::class, 'viewReport'])->name('view_report');
-Route::get('/forum', [AdvisorController::class, 'forum'])->name('forum');
-
-
-
-
-Route::get('/student', [StudentController::class, 'dashboard'])->name('student');
+Route::prefix('student')->group(function () {
+    Route::get('/', [StudentController::class, 'dashboard'])->name('student');
+    Route::get('/forum', [StudentController::class, 'forum'])->name('student.forum');
+    Route::get('/group', [StudentController::class, 'group'])->name('student.group');
+    Route::get('/view_notice', [StudentController::class, 'viewNotice'])->name('student.view_notice');
+    Route::get('upload_report', [StudentController::class, 'uploadReport'])->name('student.upload_report');
+});
