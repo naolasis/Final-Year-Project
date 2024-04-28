@@ -13,8 +13,11 @@
             <div class="logo"><img src="{{asset('assets/images/logo.png')}}" alt="Ambo University Logo"> <h1>FYPMS</h1>  </div>
         </div>
         <div class="login-form">
-            <div class="invalid-credential">invalid credential</div>
-            <form action="">
+            @if ($errors->any())
+                <div class="invalid-credential">{{ $errors->first() }}</div>
+            @endif
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
                 <label for="username">Username</label>
                 <div class="username login-input">
                     <input class="login-input-field" type="text" name="username" placeholder="Enter Your Username">
@@ -28,7 +31,7 @@
                 <div class="submit-btn"><input class="submit" type="submit" value="Login"></div>
             </form>
             <a class="forget-password" href="#">Forgot Password?</a>
-        </div>
+        </div>        
     </div>
     @include('layouts.footer')
 </body>
