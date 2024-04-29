@@ -19,6 +19,7 @@ Route::get('/', function () {
 Route::get('/login', [AuthController::class, 'ShowLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('preventBackHistory');
 
 
 Route::middleware('auth')->group(function () {

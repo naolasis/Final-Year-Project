@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -17,25 +18,10 @@ class AuthController extends Controller
         $credentials = $request->only('username', 'password');
 
         if (Auth::attempt($credentials)) {
-            // Authentication passed
             $user = Auth::user();
-            if ($user->isAdmin()) {
-                return redirect()->route('admin');
-            } elseif ($user->isCommitteeHead()) {
-                return redirect()->route('committee_head');
-            } elseif ($user->isCommitteeMember()) {
-                return redirect()->route('committee_member');
-            } elseif ($user->isAdvisor()) {
-                return redirect()->route('advisor');
-            } elseif ($user->isStudent()) {
-                return redirect()->route('student');
-            } else {
-                // Handle other roles or redirect to a default dashboard
-                return redirect('/dashboard');
-            }
+            return redirect()->route($this->redirectToRole($user));
         } else {
-            // Authentication failed
-            return back()->withErrors('Invalid credentials');
+            return back()->withErrors(['error' => trans('auth.failed')]);
         }
     }
 
@@ -43,5 +29,23 @@ class AuthController extends Controller
     {
         Auth::logout();
         return redirect('/login');
+    }
+
+    protected function redirectToRole($user)
+    {
+        switch (true) {
+            case $user->isAdmin():
+                return 'admin';
+            case $user->isCommitteeHead():
+                return 'committee_head';
+            case $user->isCommitteeMember():
+                return 'committee_member';
+            case $user->isAdvisor():
+                return 'advisor';
+            case $user->isStudent():
+                return 'student';
+            default:
+                return 'login';
+        }
     }
 }
