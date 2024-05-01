@@ -379,7 +379,8 @@ header{
     height: 50px;
     min-height: 50px;
     border-radius: 50%;
-    background: #007CB9;
+    /* background: #007CB9; */
+    background: transparent;
     overflow: hidden;
     position: relative;
 }
@@ -619,10 +620,6 @@ ul{
 .notice-link h6{
     font-size: 1rem;
     margin:0 .3rem 0 0;
-}
-
-.user-photo {
-
 }
 /* ---forum container--- */
 /* .forum-container{
