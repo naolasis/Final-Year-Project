@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('committees', function (Blueprint $table) {
             $table->id();
-            $table->string('username')->unique();
-            $table->foreign('username')->references('username')->on('users');
-            $table->enum('type', ['committee_head', 'committee_member'])->default('committee_member');
+            $table->string('fullname');
+            $table->string('email');
+            $table->string('username');
+            // $table->foreign('username')->references('username')->on('users');
+            $table->string('password');
+            $table->enum('type', ['committee_head', 'committee_member']);
             $table->timestamps();
         });
     }

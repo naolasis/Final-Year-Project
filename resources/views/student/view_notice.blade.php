@@ -7,6 +7,7 @@
           <tr>
               <th>Title</th>
               <th>Content</th>
+              <th>Posted By</th>
           </tr>
       </thead>
       <tbody>
@@ -14,6 +15,7 @@
               <tr>
                   <td>{{ $notice->title }}</td>
                   <td>{{ $notice->content }}</td>
+                  <td>{{ $notice->posted_by }}</td>
               </tr>
           @endforeach
       </tbody>

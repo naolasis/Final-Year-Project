@@ -9,10 +9,10 @@ class Committee extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['username']; // Fillable attributes
+    protected $fillable = ['username', 'password', 'email', 'fullname', 'type']; // Fillable attributes
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'username', 'username');
+        // return $this->belongsTo(User::class, 'username', 'username');
     }
 }

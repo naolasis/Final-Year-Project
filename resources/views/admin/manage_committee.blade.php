@@ -15,7 +15,7 @@
             <div class="form-input"><input class="form-input-field" type="text" name="username" placeholder="Username"></div>
             <div class="form-input"><input class="form-input-field" type="password" name="password" placeholder="Password"></div>
             <div class="form-input">
-                <select class="form-input-field" name="" id="">
+                <select class="form-input-field" name="type" id="">
                     <option value="" disabled selected>Committee Type</option>
                     <option value="">Committee Head</option>
                     <option value="">Committee Member</option>

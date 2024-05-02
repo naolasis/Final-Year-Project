@@ -15,7 +15,7 @@ class AdminController extends Controller
         $advisorCount = Advisor::count();
         $committeeCount = Committee::count();
         $groupCount = Group::count();
-        return view('admin.dashboard', compact('studentCount'));
+        return view('admin.dashboard', compact('studentCount', 'advisorCount', 'committeeCount', 'groupCount'));
     }
 
     public function manageCommittee(){
