@@ -25,6 +25,19 @@ class User extends Authenticatable
         'image'
     ];
 
+    public function committee()
+    {
+        return $this->hasOne(Committee::class, 'username', 'username');
+    }
+    public function advisor()
+    {
+        return $this->hasOne(Advisor::class, 'username', 'username');
+    }
+    public function student()
+    {
+        return $this->hasOne(Student::class, 'username', 'username');
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -51,7 +64,6 @@ class User extends Authenticatable
 
     
     // Added for role checking
-
 
     /**
      * Check if the user is an admin.

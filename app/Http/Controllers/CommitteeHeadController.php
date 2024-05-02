@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Advisor;
+use App\Models\Committee;
+use App\Models\Group;
 use App\Models\Notice;
 use App\Models\Student;
 use Illuminate\Http\Request;
@@ -11,7 +14,10 @@ class CommitteeHeadController extends Controller
     public function dashboard(){
         $noticeCount = Notice::count();
         $studentCount = Student::count();
-        return view('committee_head.dashboard', compact('noticeCount', 'studentCount'));
+        $advisorCount = Advisor::count();
+        $committeeCount = Committee::count();
+        $groupCount = Group::count();
+        return view('committee_head.dashboard', compact('noticeCount', 'studentCount', 'advisorCount', 'committeeCount', 'groupCount'));
     }
 
     public function manageAdvisor(){

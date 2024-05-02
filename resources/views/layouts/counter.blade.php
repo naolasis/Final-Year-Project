@@ -5,7 +5,7 @@
         </div>
         <div class="count-container">
             <p>Committee's</p>
-            <h4>0</h4>
+            <h4>{{ $committeeCount }}</h4>
         </div>
     </div>
     <div class="card-container">
@@ -14,7 +14,7 @@
         </div>
         <div class="count-container">
             <p>Advisor's</p>
-            <h4>0</h4>
+            <h4>{{ $advisorCount}}</h4>
         </div>
     </div>
     <div class="card-container">
@@ -23,7 +23,7 @@
         </div>
         <div class="count-container">
             <p>Student's</p>
-            <h4>0</h4>
+            <h4>{{ $studentCount }}</h4>
         </div>
     </div>
     <div class="card-container">
@@ -32,7 +32,7 @@
         </div>
         <div class="count-container">
             <p>Group's</p>
-            <h4>0</h4>
+            <h4>{{ $groupCount }}</h4>
         </div>
     </div>
 </div>
