@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notice;
 use Illuminate\Http\Request;
 
 class CommitteeHeadController extends Controller
 {
     public function dashboard(){
-        return view('committee_head.dashboard');
+        $noticeCount = Notice::count();
+        return view('committee_head.dashboard', compact('noticeCount'));
     }
 
     public function manageAdvisor(){

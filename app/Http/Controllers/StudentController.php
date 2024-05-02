@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notice;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
     public function dashboard(){
-        return view('student.dashboard');
+        $noticeCount = Notice::count(); // Get the count of notices
+        return view('student.dashboard', compact('noticeCount')); // Pass noticeCount to the view
     }
 
     public function forum(){
@@ -19,7 +21,9 @@ class StudentController extends Controller
     }
 
     public function viewNotice() {
-        return view('student.view_notice');
+        $notices = Notice::all(); // Fetch all notices
+        $latestNotice = Notice::latest()->first(); // Get the latest notice
+        return view('student.view_notice', compact('notices', 'latestNotice'));
     }
 
     public function uploadReport() {

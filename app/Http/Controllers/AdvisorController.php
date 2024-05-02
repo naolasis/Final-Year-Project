@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notice;
 use Illuminate\Http\Request;
 
 class AdvisorController extends Controller
 {
     public function dashboard(){
-        return view('advisor.dashboard');
+        $noticeCount = Notice::count();
+        return view('advisor.dashboard', compact('noticeCount'));
     }
 
     public function viewNotice(){
-        return view('advisor.view_notice');
+        $notices = Notice::all();
+        $latestNotice = Notice::latest()->first();
+        return view('advisor.view_notice', compact('notices', 'latestNotice'));
     }
 
     public function viewGroup(){
