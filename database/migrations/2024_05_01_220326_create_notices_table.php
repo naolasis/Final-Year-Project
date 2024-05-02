@@ -16,8 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('content');
             $table->string('posted_by');
-            // $table->foreign('posted_by')->references('id')->on('users'); // Assuming users table for user information
-            $table->timestamp('posted_at')->nullable();
+            $table->foreign('posted_by')->references('username')->on('users'); // Assuming users table for user information
             $table->enum('status', ['active', 'archived', 'deleted'])->default('active');
             $table->timestamps();
         });

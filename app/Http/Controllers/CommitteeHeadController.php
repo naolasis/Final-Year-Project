@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Notice;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class CommitteeHeadController extends Controller
 {
     public function dashboard(){
         $noticeCount = Notice::count();
-        return view('committee_head.dashboard', compact('noticeCount'));
+        $studentCount = Student::count();
+        return view('committee_head.dashboard', compact('noticeCount', 'studentCount'));
     }
 
     public function manageAdvisor(){

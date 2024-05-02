@@ -9,10 +9,17 @@ class Notice extends Model
 {
     use HasFactory;
 
-    // public function postedBy()
-    // {
-    //     return $this->belongsTo(User::class, 'posted_by');
-    // }
+    protected $fillable = [
+        'title',
+        'content',
+        'posted_by',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'posted_by');
+    }
+
 
 }
 

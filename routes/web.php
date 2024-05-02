@@ -7,12 +7,17 @@ use App\Http\Controllers\AdvisorController;
 use App\Http\Controllers\StudentController;
 
 use App\Http\Controllers\AuthController;
-
+use App\Http\Controllers\NoticeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('login');
 });
+
+
+//notice
+Route::post('/notices', [NoticeController::class, 'store'])->name('notice.store');
+Route::put('/notices/{notice}', [NoticeController::class, 'update'])->name('notice.update');
 
 
 // routes/web.php

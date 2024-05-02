@@ -162,6 +162,15 @@ a:focus{
     border-radius: 10px;
 }
 
+.success-credential{
+    margin: 0 0 1rem 0;
+    text-align: center;
+    background-color: var(--success-bg-color);
+    color: var(--success-color);
+    padding: 1rem 0;
+    border-radius: 10px;
+}
+
 /* --------footer--------- */
 .footer {
     background-color: #f0f0f0;
