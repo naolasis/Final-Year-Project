@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('fullname');
             $table->string('email');
             $table->string('username');
-            // $table->foreign('username')->references('username')->on('users');
             $table->string('password');
             $table->enum('type', ['committee_head', 'committee_member']);
             $table->timestamps();
