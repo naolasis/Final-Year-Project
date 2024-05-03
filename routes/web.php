@@ -17,8 +17,7 @@ Route::get('/', function () {
 
 
 //notice
-Route::post('/notices', [NoticeController::class, 'store'])->name('notice.store');
-Route::put('/notices/{notice}', [NoticeController::class, 'update'])->name('notice.update');
+Route::resource('notices', NoticeController::class)->only(['store', 'show', 'edit', 'update', 'destroy']);
 
 //committee
 Route::resource('committees', CommitteeController::class)->only(['store', 'show', 'edit', 'update', 'destroy']);

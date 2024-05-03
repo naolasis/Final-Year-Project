@@ -7,7 +7,7 @@
         <div><a class="add-committee ms-button" href="#">Send Notice</a></div>
         <div><a class="modify-committee ms-button" href="#">Update Notice</a></div>
     </div>
-    <<form method="POST" action="{{ route('notice.store') }}" class="add-committee-form">
+    <form method="POST" action="{{ route('notices.store') }}" class="add-committee-form">
         @csrf
         <div class="manage-status">Create New Notice</div>
         <div class="input-container">
