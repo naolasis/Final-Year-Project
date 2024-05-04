@@ -14,11 +14,7 @@ class StudentSeeder extends Seeder
     public function run(): void
     {
         $students = [
-            [
-                'username' => 'selam',
-                'student_attribute1' => 'attribute1',
-                'student_attribute2' => 'attribute2',
-            ],
+            
         ];
 
         foreach ($students as $student) {

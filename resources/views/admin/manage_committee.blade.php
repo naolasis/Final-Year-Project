@@ -14,7 +14,7 @@
     @if (session('success'))
         <div class="success-credential mt-1">{{ session('success') }}</div>
     @endif
-    <form method="POST" action="{{ route('committees.store') }}" class="add-committee-form">
+    <form method="POST" action="{{ route('committees.store') }}" enctype="multipart/form-data" class="add-committee-form">
         @csrf
         <div class="manage-status">Create Committee</div>
         <div class="input-container">
@@ -22,6 +22,8 @@
             <div class="form-input"><input class="form-input-field" type="email" name="email" placeholder="Email" required></div>
             <div class="form-input"><input class="form-input-field" type="text" name="username" placeholder="Username" required></div>
             <div class="form-input"><input class="form-input-field" type="password" name="password" placeholder="Password" required></div>
+            <div class="form-input"><input class="form-input-field" id="image-file" type="file" name="image"></div>
+            
             <div class="form-input">
                 <select class="form-input-field" name="type" required>
                     <option value="" disabled selected>Committee Type</option>

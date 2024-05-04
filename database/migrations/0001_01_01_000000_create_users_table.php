@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('fullname');
             $table->string('username');
             $table->string('password');
-            $table->string('email')->unique();
-            $table->string('role');
-            $table->string('image')->nullable();
+            $table->string('role'); // Admin, Committee Head, Committee Member, Advisor, Student
+            $table->string('fullname');
+            $table->string('email');
+            $table->string('image');
             $table->timestamps();
 
             // Add index to the username column

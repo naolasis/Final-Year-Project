@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Committee;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CommitteeController extends Controller
@@ -35,22 +36,35 @@ class CommitteeController extends Controller
             'email' => 'required|email',
             'password' => 'required|string|min:6', // Adjusted validation rule
             'type' => 'required|string|in:committee_head,committee_member', // Adjusted validation rule
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
     
         // Hash the password
         $hashedPassword = bcrypt($validatedData['password']);
-    
+
+        // Upload the image
+        $imagePath = $request->file('image')->store('images'); // Store the image in storage/app/public/images
+
+        // Determine the role based on the selected type
+        $role = ($validatedData['type'] === 'committee_head') ? 'committee_head' : 'committee_member';
+
+        // Create a new user record
+        $user = User::create([
+            'username' => $validatedData['username'],
+            'password' => $hashedPassword,
+            'role' => $role,
+            'fullname' => $validatedData['fullname'],
+            'email' => $validatedData['email'],
+            'image' => $imagePath,
+        ]);
+
         // Create a new committee record
         Committee::create([
-            'fullname' => $validatedData['fullname'],
-            'username' => $validatedData['username'],
-            'email' => $validatedData['email'],
-            'password' => $hashedPassword,
-            'type' => $validatedData['type']
+            'user_id' => $user->id, // Using id of the user created
+            'type' => $validatedData['type'],
         ]);
-    
+
         return redirect()->back()->with('success', 'Committee created successfully!');
-        
     }
     
 

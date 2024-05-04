@@ -2,14 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -17,26 +16,18 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'fullname',
-        'email',
-        'password',
         'username',
         'role', 
-        'image'
+        'password',
+        'fullname',
+        'email',
+        'image',
     ];
 
-    public function committee()
-    {
-        return $this->hasOne(Committee::class, 'username', 'username');
-    }
-    public function advisor()
-    {
-        return $this->hasOne(Advisor::class, 'username', 'username');
-    }
-    public function student()
-    {
-        return $this->hasOne(Student::class, 'username', 'username');
-    }
+    // public function committees()
+    // {
+    //     return $this->hasMany(Committee::class);
+    // }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -46,7 +37,6 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
-        'username', // Optionally, you can hide the 'username' field
     ];
 
     /**
@@ -65,51 +55,26 @@ class User extends Authenticatable
     
     // Added for role checking
 
-    /**
-     * Check if the user is an admin.
-     *
-     * @return bool
-     */
     public function isAdmin(): bool
     {
         return $this->role === 'admin';
     }
 
-    /**
-     * Check if the user is a committee head.
-     *
-     * @return bool
-     */
     public function isCommitteeHead(): bool
     {
         return $this->role === 'committee_head';
     }
 
-    /**
-     * Check if the user is a committee member.
-     *
-     * @return bool
-     */
     public function isCommitteeMember(): bool
     {
         return $this->role === 'committee_member';
     }
 
-    /**
-     * Check if the user is an advisor.
-     *
-     * @return bool
-     */
     public function isAdvisor(): bool
     {
         return $this->role === 'advisor';
     }
 
-    /**
-     * Check if the user is a student.
-     *
-     * @return bool
-     */
     public function isStudent(): bool
     {
         return $this->role === 'student';

@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('advisors', function (Blueprint $table) {
             $table->id();
-            $table->string('username')->unique();
-            $table->foreign('username')->references('username')->on('users');
+            $table->unsignedBigInteger('user_id');
+            // Other advisor-specific attributes
             $table->timestamps();
+        
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
