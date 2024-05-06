@@ -24,14 +24,35 @@
         </div>
     </form>
 
+    {{-- Update Part --}}
+    <div class="modify-committee-form">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Content</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($notices as $notice)
+                    <tr>
+                        <td>{{ $notice->title }}</td>
+                        <td>{{ $notice->content }}</td>
+                        <td>
+                            <a href="{{ route('notices.edit', $notice->id) }}" class="edit-button">Edit</a>
+                            <form action="{{ route('notices.destroy', $notice->id) }}" method="POST" style="display: inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="delete-button">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
 
-    <form action="#" class="modify-committee-form">
-        <div>update notice</div>
-        <div>update notice</div>
-        <div>update notice</div>
-        <div>update notice</div>
-        <div>update notice</div>
-    </form>
+    </div>
 
 </div>
 

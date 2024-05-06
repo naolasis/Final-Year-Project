@@ -22,7 +22,7 @@ return new class extends Migration
             $table->timestamps();
 
             // Add index to the username column
-            $table->index('username');
+            // $table->index('username');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

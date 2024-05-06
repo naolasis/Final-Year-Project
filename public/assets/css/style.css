@@ -673,6 +673,25 @@ ul{
     border-bottom: 2px solid var(--sidebar-bg-color);
 }
 
+.table .edit-button {
+    background-color: #e2b714;
+    color: #ffffff;
+    padding: 4px 20px;
+    text-decoration: none;
+}
+
+.table .delete-button {
+    background-color: #ca4754;
+    color: #ffffff;
+    padding: 5px 16px;
+    border: none;
+    cursor: pointer;
+}
+.table .edit-button:hover,
+.table .delete-button:hover {
+    opacity: .8;
+}
+
 
 /* ---forum container--- */
 /* .forum-container{

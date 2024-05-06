@@ -35,7 +35,8 @@ class CommitteeMemberController extends Controller
     }
 
     public function manageNotice(){
-        return view('committee_member.manage_notice');
+        $notices = Notice::all();
+        return view('committee_member.manage_notice', compact('notices'));
     }
 
     public function viewReport(){

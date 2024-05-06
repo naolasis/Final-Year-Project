@@ -78,9 +78,45 @@ class CommitteeController extends Controller
         // Show the form for editing the specified resource.
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        // Update the specified resource in storage.
+        // Validate the request data
+        $validatedData = $request->validate([
+            'fullname' => 'required|string|max:255',
+            'username' => 'required|string|max:255',
+            'email' => 'required|email',
+            'password' => 'required|string|min:6',
+            'type' => 'required|string|in:committee_head,committee_member',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        // Hash the password
+        $hashedPassword = bcrypt($validatedData['password']);
+
+        // Upload the image
+        $imagePath = $request->file('image')->store('images');
+
+        // Determine the role based on the selected type
+        $role = ($validatedData['type'] === 'committee_head') ? 'committee_head' : 'committee_member';
+
+        // Update the user record
+        $user = User::find($id);
+        $user->update([
+            'username' => $validatedData['username'],
+            'password' => $hashedPassword,
+            'role' => $role,
+            'fullname' => $validatedData['fullname'],
+            'email' => $validatedData['email'],
+            'image' => $imagePath,
+        ]);
+
+        // Update the committee record
+        $committee = Committee::where('user_id', $user->id)->first();
+        $committee->update([
+            'type' => $validatedData['type'],
+        ]);
+
+        return redirect()->back()->with('success', 'Committee updated successfully!');
     }
 
     public function destroy(string $id)
