@@ -21,6 +21,12 @@ Route::resource('notices', NoticeController::class)->only(['store', 'show', 'edi
 //committee
 Route::resource('committees', CommitteeController::class)->only(['store', 'show', 'edit', 'update', 'destroy']);
 
+//advisor
+Route::resource('advisors', AdvisorController::class)->only(['store', 'show', 'edit', 'update', 'destroy']);
+
+//student
+Route::resource('students', StudentController::class)->only(['store', 'show', 'edit', 'update', 'destroy']);
+
 // routes/web.php
 Route::get('/login', [LoginController::class, 'ShowLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);

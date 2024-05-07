@@ -21,11 +21,13 @@ class CommitteeHeadController extends Controller
     }
 
     public function manageAdvisor(){
-        return view('committee_head.manage_advisor');
+        $advisors = Advisor::with('user')->get();
+        return view('committee_head.manage_advisor', compact('advisors'));
     }
 
     public function manageStudent(){
-        return view('committee_head.manage_student');
+        $students = Student::with('user')->get();
+        return view('committee_head.manage_student', compact('students'));
     }
 
     public function viewGroup(){

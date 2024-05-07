@@ -684,6 +684,7 @@ ul{
     background-color: #ca4754;
     color: #ffffff;
     padding: 5px 16px;
+    margin-left: .25rem;
     border: none;
     cursor: pointer;
 }
@@ -691,6 +692,8 @@ ul{
 .table .delete-button:hover {
     opacity: .8;
 }
+
+.action-col {display: flex;}
 
 
 /* ---forum container--- */

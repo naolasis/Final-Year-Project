@@ -56,9 +56,9 @@
                         <td>{{ $committee->user->email }}</td>
                         <td>{{ $committee->user->username }}</td>
                         <td>{{ $committee->type }}</td>
-                        <td>
+                        <td class="action-col">
                             <a href="{{ route('committees.edit', $committee->id) }}" class="edit-button">Edit</a>
-                            <form action="{{ route('committees.destroy', $committee->id) }}" method="POST" style="display: inline">
+                            <form action="{{ route('committees.destroy', $committee->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="delete-button">Delete</button>
