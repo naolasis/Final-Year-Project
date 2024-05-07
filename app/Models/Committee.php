@@ -8,9 +8,9 @@ class Committee extends Model
 {
     protected $fillable = ['type', 'user_id']; // Fillable attributes
 
-    // public function user()
-    // {
-    //     return $this->belongsTo(User::class);
-    // }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
 

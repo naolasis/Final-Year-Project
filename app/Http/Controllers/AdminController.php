@@ -6,6 +6,7 @@ use App\Models\Advisor;
 use App\Models\Committee;
 use App\Models\Group;
 use App\Models\Student;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -19,6 +20,7 @@ class AdminController extends Controller
     }
 
     public function manageCommittee(){
-        return view('admin.manage_committee'); 
+        $committees = Committee::with('user')->get();
+        return view('admin.manage_committee', compact('committees'));
     }
 }

@@ -13,7 +13,7 @@ class CommitteeController extends Controller
      */
     public function index()
     {
-        //
+        // 
     }
 
     /**
@@ -75,7 +75,8 @@ class CommitteeController extends Controller
  
     public function edit(string $id)
     {
-        // Show the form for editing the specified resource.
+        $committee = Committee::findOrFail($id);
+        return view('admin.committee_edit', compact('committee'));
     }
 
     public function update(Request $request, $id)
@@ -100,7 +101,8 @@ class CommitteeController extends Controller
         $role = ($validatedData['type'] === 'committee_head') ? 'committee_head' : 'committee_member';
 
         // Update the user record
-        $user = User::find($id);
+        $committee = Committee::find($id);
+        $user = $committee->user;
         $user->update([
             'username' => $validatedData['username'],
             'password' => $hashedPassword,
@@ -111,7 +113,6 @@ class CommitteeController extends Controller
         ]);
 
         // Update the committee record
-        $committee = Committee::where('user_id', $user->id)->first();
         $committee->update([
             'type' => $validatedData['type'],
         ]);
@@ -121,6 +122,13 @@ class CommitteeController extends Controller
 
     public function destroy(string $id)
     {
-        // Remove the specified resource from storage.
+        $committee = Committee::findOrFail($id);
+        
+        $user = $committee->user;
+        $committee->delete();
+        $user->delete();
+
+        return redirect()->back()->with('success', 'Committee deleted successfully!');
     }
+
 }

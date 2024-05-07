@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('username');
+            $table->string('username')->unique();
             $table->string('password');
             $table->string('role'); // Admin, Committee Head, Committee Member, Advisor, Student
             $table->string('fullname');
@@ -21,8 +21,6 @@ return new class extends Migration
             $table->string('image');
             $table->timestamps();
 
-            // Add index to the username column
-            // $table->index('username');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

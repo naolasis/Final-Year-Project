@@ -24,10 +24,11 @@ class User extends Authenticatable
         'image',
     ];
 
-    // public function committees()
-    // {
-    //     return $this->hasMany(Committee::class);
-    // }
+    public function committee()
+    {
+        return $this->hasOne(Committee::class);
+    }
+
 
     /**
      * The attributes that should be hidden for serialization.

@@ -38,29 +38,38 @@
     </form>
 
     <!-- Modify Committee Form -->
-    {{-- <form method="POST" action="{{ route('committees.update', $committee->id) }}" enctype="multipart/form-data" class="modify-committee-form" style="display: none;">
-        @csrf
-        @method('PUT') --}}
-        <div class="manage-status">Modify Committee</div>
-        {{-- <div class="input-container">
-            <div class="form-input"><input class="form-input-field" type="text" name="fullname" placeholder="Full Name" value="{{ $committee->fullname }}" required></div>
-            <div class="form-input"><input class="form-input-field" type="email" name="email" placeholder="Email" value="{{ $committee->email }}" required></div>
-            <div class="form-input"><input class="form-input-field" type="text" name="username" placeholder="Username" value="{{ $committee->username }}" required></div>
-            <div class="form-input"><input class="form-input-field" type="password" name="password" placeholder="Password" value="{{ $committee->password }}" required></div>
-            <div class="form-input"><input class="form-input-field" id="image-file" type="file" name="image"></div>
-            
-            <div class="form-input">
-                <select class="form-input-field" name="type" required>
-                    <option value="" disabled selected>Committee Type</option>
-                    <option value="committee_head" {{ $committee->type == 'committee_head' ? 'selected' : '' }}>Committee Head</option>
-                    <option value="committee_member" {{ $committee->type == 'committee_member' ? 'selected' : '' }}>Committee Member</option>
-                </select>
-            </div>
-            <div class="submit-btn"><input class="submit" type="submit" value="Submit"></div>
-        </div>
-    </form> --}}
+    <div class="modify-committee-form">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Username</th>
+                    <th>Commitee Type</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($committees as $committee)
+                    <tr>
+                        <td>{{ $committee->user->fullname }}</td>
+                        <td>{{ $committee->user->email }}</td>
+                        <td>{{ $committee->user->username }}</td>
+                        <td>{{ $committee->type }}</td>
+                        <td>
+                            <a href="{{ route('committees.edit', $committee->id) }}" class="edit-button">Edit</a>
+                            <form action="{{ route('committees.destroy', $committee->id) }}" method="POST" style="display: inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="delete-button">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+
+    </div>
 </div>
-
-
 
 @endsection
