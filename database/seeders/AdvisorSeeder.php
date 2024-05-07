@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Advisor;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class AdvisorSeeder extends Seeder
@@ -13,12 +13,17 @@ class AdvisorSeeder extends Seeder
      */
     public function run(): void
     {
-        $advisors = [
-            
-        ];
+        // Get the specific user from the users table
+        $user = User::where('username', 'advisor1')->first();
 
-        foreach ($advisors as $advisor) {
-            Advisor::create($advisor);
+        // Check if the user exists
+        if ($user) {
+            $advisor = new Advisor([
+                // advisor data
+            ]);
+
+            $advisor->user_id = $user->id;
+            $advisor->save();
         }
     }
 }

@@ -119,6 +119,4 @@ class AdvisorController extends Controller
         return redirect()->back()->with('success', 'Advisor deleted successfully!');
     }
 
-
-
 }
