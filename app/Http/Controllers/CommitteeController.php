@@ -36,14 +36,13 @@ class CommitteeController extends Controller
             'email' => 'required|email',
             'password' => 'required|string|min:6', // Adjusted validation rule
             'type' => 'required|string|in:committee_head,committee_member', // Adjusted validation rule
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
     
         // Hash the password
         $hashedPassword = bcrypt($validatedData['password']);
 
         // Upload the image
-        $imagePath = $request->file('image')->store('images'); // Store the image in storage/app/public/images
+        $imagePath = 'images/default_image.png';
 
         // Determine the role based on the selected type
         $role = ($validatedData['type'] === 'committee_head') ? 'committee_head' : 'committee_member';
@@ -94,15 +93,22 @@ class CommitteeController extends Controller
         // Hash the password
         $hashedPassword = bcrypt($validatedData['password']);
 
-        // Upload the image
-        $imagePath = $request->file('image')->store('images');
-
         // Determine the role based on the selected type
         $role = ($validatedData['type'] === 'committee_head') ? 'committee_head' : 'committee_member';
 
         // Update the user record
         $committee = Committee::find($id);
         $user = $committee->user;
+
+        // Check if an image is uploaded
+        if ($request->hasFile('image')) {
+            // Upload the new image
+            $imagePath = $request->file('image')->store('images');
+        } else {
+            // Use the old image path if no new image is uploaded
+            $imagePath = $user->image;
+        }
+        
         $user->update([
             'username' => $validatedData['username'],
             'password' => $hashedPassword,

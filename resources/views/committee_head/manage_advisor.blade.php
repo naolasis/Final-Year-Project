@@ -22,7 +22,6 @@
             <div class="form-input"><input class="form-input-field" type="email" name="email" placeholder="Email" required></div>
             <div class="form-input"><input class="form-input-field" type="text" name="username" placeholder="Username" required></div>
             <div class="form-input"><input class="form-input-field" type="password" name="password" placeholder="Password" required></div>
-            <div class="form-input"><input class="form-input-field" id="image-file" type="file" name="image"></div>
             <div class="submit-btn"><input class="submit" type="submit" value="Submit"></div>
         </div>
     </form>

@@ -48,8 +48,8 @@ class StudentController extends Controller
         // Hash the password
         $hashedPassword = bcrypt($validatedData['password']);
 
-        // Upload the image
-        $imagePath = $request->file('image')->store('images'); // Store the image in storage/app/public/images
+       // Upload the image
+       $imagePath = 'images/default_image.png';
 
         // Create a new user record
         $user = User::create([
@@ -90,12 +90,19 @@ class StudentController extends Controller
         // Hash the password
         $hashedPassword = bcrypt($validatedData['password']);
 
-        // Upload the image
-        $imagePath = $request->file('image')->store('images');
-
         // Update the user record
         $student = Student::find($id);
         $user = $student->user;
+
+        // Check if an image is uploaded
+        if ($request->hasFile('image')) {
+            // Upload the new image
+            $imagePath = $request->file('image')->store('images');
+        } else {
+            // Use the old image path if no new image is uploaded
+            $imagePath = $user->image;
+        }
+        
         $user->update([
             'username' => $validatedData['username'],
             'password' => $hashedPassword,
