@@ -6,6 +6,7 @@ use App\Models\Advisor;
 use App\Models\Committee;
 use App\Models\Group;
 use App\Models\Notice;
+use App\Models\Policy;
 use App\Models\Student;
 use Illuminate\Http\Request;
 
@@ -35,7 +36,8 @@ class CommitteeHeadController extends Controller
     }
 
     public function managePolicy(){
-        return view('committee_head.manage_policy');
+        $policies = Policy::all();
+        return view('committee_head.manage_policy', compact('policies'));
     }
 
     public function manageNotice(){

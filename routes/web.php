@@ -9,6 +9,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CommitteeController;
 use App\Http\Controllers\NoticeController;
+use App\Http\Controllers\PolicyController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,6 +18,9 @@ Route::get('/', function () {
 
 //notice
 Route::resource('notices', NoticeController::class)->only(['store', 'show', 'edit', 'update', 'destroy']);
+
+//policy
+Route::resource('policies', PolicyController::class)->only(['store', 'show', 'edit', 'update', 'destroy']);
 
 //committee
 Route::resource('committees', CommitteeController::class)->only(['store', 'show', 'edit', 'update', 'destroy']);
