@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->string('username')->unique();
-            $table->foreign('username')->references('username')->on('users');
-            $table->string('student_attribute1');
-            $table->string('student_attribute2');
+            $table->unsignedBigInteger('user_id');
+            // Add student-specific attributes here
             $table->timestamps();
+        
+            $table->foreign('user_id')->references('id')->on('users');
         });
         
     }

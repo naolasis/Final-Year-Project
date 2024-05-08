@@ -14,9 +14,7 @@ class AdvisorSeeder extends Seeder
     public function run(): void
     {
         $advisors = [
-            [
-                'username' => 'Bill',
-            ],
+            
         ];
 
         foreach ($advisors as $advisor) {

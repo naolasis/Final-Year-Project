@@ -6,7 +6,8 @@ use App\Http\Controllers\CommitteeMemberController;
 use App\Http\Controllers\AdvisorController;
 use App\Http\Controllers\StudentController;
 
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\CommitteeController;
 use App\Http\Controllers\NoticeController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,18 +15,17 @@ Route::get('/', function () {
     return view('login');
 });
 
-
 //notice
-Route::post('/notices', [NoticeController::class, 'store'])->name('notice.store');
-Route::put('/notices/{notice}', [NoticeController::class, 'update'])->name('notice.update');
+Route::resource('notices', NoticeController::class)->only(['store', 'show', 'edit', 'update', 'destroy']);
 
+//committee
+Route::resource('committees', CommitteeController::class)->only(['store', 'show', 'edit', 'update', 'destroy']);
 
 // routes/web.php
-Route::get('/login', [AuthController::class, 'ShowLoginForm'])->name('login');
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('preventBackHistory');
-
+Route::get('/login', [LoginController::class, 'ShowLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('preventBackHistory');
 
 Route::middleware('auth')->group(function () {
     Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin');

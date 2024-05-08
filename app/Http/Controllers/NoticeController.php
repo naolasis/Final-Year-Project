@@ -13,7 +13,7 @@ class NoticeController extends Controller
      */
     public function index()
     {
-        //
+        // 
     }
 
     /**
@@ -62,22 +62,46 @@ class NoticeController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        // Find the notice by ID
+        $notice = Notice::findOrFail($id);
+
+        // Show an edit form
+        return view('notices.notice_edit', compact('notice'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        // Validate the request data
+        $validatedData = $request->validate([
+            'notice_title' => 'required|string|max:255',
+            'notice_content' => 'required|string',
+        ]);
+
+        // Find the notice by ID
+        $notice = Notice::findOrFail($id);
+
+        // Update notice details
+        $notice->update([
+            'title' => $validatedData['notice_title'],
+            'content' => $validatedData['notice_content'],
+        ]);
+
+        // Redirect back with success message
+        return redirect()->back()->with('success', 'Notice updated successfully!');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        $notice = Notice::findOrFail($id);
+        $notice->delete();
+
+        return redirect()->back()->with('success', 'Notice deleted successfully!');
     }
 }

@@ -7,27 +7,52 @@
         <div><a class="add-committee ms-button" href="#">Send Notice</a></div>
         <div><a class="modify-committee ms-button" href="#">Update Notice</a></div>
     </div>
-    <<form method="POST" action="{{ route('notice.store') }}" class="add-committee-form">
+    @if ($errors->any())
+    <div class="invalid-credential mt-1">{{ $errors->first() }}</div>
+    @endif
+
+    @if (session('success'))
+        <div class="success-credential mt-1">{{ session('success') }}</div>
+    @endif
+    <form method="POST" action="{{ route('notices.store') }}" class="add-committee-form">
         @csrf
         <div class="manage-status">Create New Notice</div>
         <div class="input-container">
             <div class="form-input"><input class="form-input-field" name="notice_title" id="" placeholder="Title"></div>
             <div class="form-input"><textarea class="form-input-field" name="notice_content" id="" cols="30" rows="10" placeholder="Content..."></textarea></div>
             <div class="submit-btn"><input class="submit" type="submit" value="Submit"></div>
-            @if (@session('success'))
-                <div class="success-credential">{{ session('success') }}</div>
-            @endif
         </div>
     </form>
 
+    {{-- Update Part --}}
+    <div class="modify-committee-form">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Content</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($notices as $notice)
+                    <tr>
+                        <td>{{ $notice->title }}</td>
+                        <td>{{ $notice->content }}</td>
+                        <td>
+                            <a href="{{ route('notices.edit', $notice->id) }}" class="edit-button">Edit</a>
+                            <form action="{{ route('notices.destroy', $notice->id) }}" method="POST" style="display: inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="delete-button">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
 
-    <form action="#" class="modify-committee-form">
-        <div>update notice</div>
-        <div>update notice</div>
-        <div>update notice</div>
-        <div>update notice</div>
-        <div>update notice</div>
-    </form>
+    </div>
 
 </div>
 
