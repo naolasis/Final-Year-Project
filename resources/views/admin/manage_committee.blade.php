@@ -24,7 +24,6 @@
             <div class="form-input"><input class="form-input-field" type="email" name="email" placeholder="Email" required></div>
             <div class="form-input"><input class="form-input-field" type="text" name="username" placeholder="Username" required></div>
             <div class="form-input"><input class="form-input-field" type="password" name="password" placeholder="Password" required></div>
-            <div class="form-input"><input class="form-input-field" id="image-file" type="file" name="image"></div>
             
             <div class="form-input">
                 <select class="form-input-field" name="type" required>
@@ -56,9 +55,9 @@
                         <td>{{ $committee->user->email }}</td>
                         <td>{{ $committee->user->username }}</td>
                         <td>{{ $committee->type }}</td>
-                        <td>
+                        <td class="action-col">
                             <a href="{{ route('committees.edit', $committee->id) }}" class="edit-button">Edit</a>
-                            <form action="{{ route('committees.destroy', $committee->id) }}" method="POST" style="display: inline">
+                            <form action="{{ route('committees.destroy', $committee->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="delete-button">Delete</button>

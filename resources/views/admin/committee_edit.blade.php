@@ -16,7 +16,6 @@
                 <div class="form-input"><input class="form-input-field" type="text" name="fullname" placeholder="Full Name" value="{{ $committee->user->fullname }}" required></div>
                 <div class="form-input"><input class="form-input-field" type="email" name="email" placeholder="Email" value="{{ $committee->user->email }}" required></div>
                 <div class="form-input"><input class="form-input-field" type="text" name="username" placeholder="Username" value="{{ $committee->user->username }}" required></div>
-                <div class="form-input"><input class="form-input-field" type="password" name="password" placeholder="Password" value="{{ $committee->user->password }}" required></div>
                 <div class="form-input"><input class="form-input-field" id="image-file" type="file" name="image"></div>
                 
                 <div class="form-input">

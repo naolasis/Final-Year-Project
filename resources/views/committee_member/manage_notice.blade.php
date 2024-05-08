@@ -39,9 +39,9 @@
                     <tr>
                         <td>{{ $notice->title }}</td>
                         <td>{{ $notice->content }}</td>
-                        <td>
+                        <td class="action-col">
                             <a href="{{ route('notices.edit', $notice->id) }}" class="edit-button">Edit</a>
-                            <form action="{{ route('notices.destroy', $notice->id) }}" method="POST" style="display: inline">
+                            <form action="{{ route('notices.destroy', $notice->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="delete-button">Delete</button>
