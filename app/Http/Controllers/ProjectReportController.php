@@ -42,7 +42,7 @@ class ProjectReportController extends Controller
 
         // Check if the student exists and has a group
         if ($student && $student->group_id) {
-            ProjectReport::create([
+            ProjectReportController::create([
                 'file_name' => $fileName,
                 'file_path' => $filePath,
                 'group_id' => $student->group_id,
