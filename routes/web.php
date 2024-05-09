@@ -83,6 +83,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/student', [StudentController::class, 'dashboard'])->name('student');
     Route::get('/student/forum', [StudentController::class, 'forum'])->name('student.forum');
     Route::get('/student/group', [StudentController::class, 'group'])->name('student.group');
+    Route::get('/student/addStudent', [StudentController::class, 'group'])->name('student.addStudent');
+    Route::get('/student/selectAdvisor', [StudentController::class, 'group'])->name('student.selectAdvisor');
     Route::get('/student/view_notice', [StudentController::class, 'viewNotice'])->name('student.view_notice');
     Route::get('/student/upload_report', [StudentController::class, 'uploadReport'])->name('student.upload_report');
 });

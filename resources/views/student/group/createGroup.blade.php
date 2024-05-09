@@ -14,7 +14,8 @@
         @if (session('success'))
             <div class="success-credential mt-1">{{ session('success') }}</div>
         @endif
-        <form action="#" class="add-committee-form" style="display: block;">
+        <form method="POST" action="{{route('groups.store')}}" class="add-committee-form" style="display: block;">
+            @csrf
             <div class="manage-status">Create Group</div>
             <div class="input-container">
                 <div class="form-input"><input class="form-input-field" type="text" name="group_name" placeholder="Group Name"></div>

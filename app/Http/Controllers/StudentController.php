@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Advisor;
+use App\Models\Group;
 use App\Models\Notice;
 use App\Models\Student;
 use App\Models\User;
@@ -19,7 +21,11 @@ class StudentController extends Controller
     }
 
     public function group(){
-        return view('student.group');
+        // $user = auth()->user();
+        // $user->student->
+        // $groupId = Group::
+        $advisors = Advisor::all();
+        return view('student.group.selectAdvisor', compact('advisors'));
     }
 
     public function viewNotice() {

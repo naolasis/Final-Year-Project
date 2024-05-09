@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('group_name');
             $table->string('project_title');
             $table->string('description');
-            $table->unsignedBigInteger('advisor_id');
+            $table->unsignedBigInteger('advisor_id')->nullable();
             $table->timestamps();
 
             $table->foreign('advisor_id')->references('id')->on('advisors');
