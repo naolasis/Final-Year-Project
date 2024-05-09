@@ -10,6 +10,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CommitteeController;
 use App\Http\Controllers\NoticeController;
 use App\Http\Controllers\PolicyController;
+use App\Http\Controllers\ProjectReportController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -21,6 +22,9 @@ Route::resource('notices', NoticeController::class)->only(['store', 'show', 'edi
 
 //policy
 Route::resource('policies', PolicyController::class)->only(['store', 'show', 'edit', 'update', 'destroy']);
+
+//report
+Route::resource('reports', ProjectReportController::class)->only(['store', 'show', 'edit', 'update', 'destroy']);
 
 //committee
 Route::resource('committees', CommitteeController::class)->only(['store', 'show', 'edit', 'update', 'destroy']);

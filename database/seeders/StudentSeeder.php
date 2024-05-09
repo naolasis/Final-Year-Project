@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Group;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -14,17 +15,20 @@ class StudentSeeder extends Seeder
      */
     public function run(): void
     {
-        // Get the specific user from the users table
         $user = User::where('username', 'student1')->first();
+        
+        $group = Group::where('group_name', 'Test Group1')->first();
 
-        // Check if the user exists
-        if ($user) {
+        // Check if both the user and the group exist
+        if ($user && $group) {
             $student = new Student([
                 // student data
             ]);
 
             $student->user_id = $user->id;
+            $student->group_id = $group->id;
             $student->save();
         }
     }
+
 }

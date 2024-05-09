@@ -7,5 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Group extends Model
 {
-    use HasFactory;
+    protected $fillable = [
+        'group_name',
+        'project_title',
+        'description',
+        'advisor_id',
+    ];
+
+    public function advisor()
+    {
+        return $this->belongsTo(Advisor::class);
+    }
 }

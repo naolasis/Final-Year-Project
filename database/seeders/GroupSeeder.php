@@ -15,9 +15,10 @@ class GroupSeeder extends Seeder
     {
         $groups = [
             [
-                'group_id' => 'testgroupid1',
-                'group_name' => 'Test group name',
-                'group_title' => 'Test Group Name',
+                'group_name' => 'Test Group1',
+                'project_title' => 'Project Management System',
+                'description'=> 'This is a description for group 1 project.',
+                'advisor_id' => 1,
             ],
         ];
 
