@@ -21,12 +21,20 @@ class StudentController extends Controller
     }
 
     public function group(){
-        // $user = auth()->user();
-        // $user->student->
-        // $groupId = Group::
+        return view('student.group.createGroup');
+    }
+
+    public function showAddStudentsForm()
+    {
+        return view('student.group.addStudents');
+    }
+
+    public function showSelectAdvisorForm()
+    {
         $advisors = Advisor::all();
         return view('student.group.selectAdvisor', compact('advisors'));
     }
+
 
     public function viewNotice() {
         $notices = Notice::all(); // Fetch all notices

@@ -10,7 +10,7 @@
         @if (session('success'))
             <div class="success-credential mt-1">{{ session('success') }}</div>
         @endif
-        <form action="{{ route('student.addStudent' {{--$groupId--}}) }}" method="POST" class="add-committee-form" style="display: block;">
+        <form action="{{ route('groups.addStudents') }}" method="POST" class="add-committee-form" style="display: block;">
             @csrf
             <div class="manage-status">Add Students</div>
             <div class="input-container">

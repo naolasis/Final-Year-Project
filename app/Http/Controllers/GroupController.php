@@ -3,11 +3,56 @@
 namespace App\Http\Controllers;
 
 use App\Models\Group;
+use App\Models\JoinRequest;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class GroupController extends Controller
 {
+    
+    public function addStudents(Request $request)
+    {
+        // Validate the request data
+        $validatedData = $request->validate([
+            'student_username' => 'required|string',
+        ]);
+
+        // Retrieve the authenticated user
+        $user = auth()->user();
+
+        // Retrieve the receiver student based on the entered username
+        $receiver = Student::whereHas('user', function ($query) use ($validatedData) {
+            $query->where('username', $validatedData['student_username']);
+        })->first();
+
+        if (!$receiver) {
+            return redirect()->back()->with('error', 'Student not found.');
+        }
+
+        // Create a new join request
+        JoinRequest::create([
+            'sender_id' => $user->student->id,
+            'receiver_id' => $receiver->id,
+            'status' => 'pending', // You can set an initial status for the request
+        ]);
+
+        
+        return redirect()->back()->with('success', 'Join request sent to the' . $receiver->user->username. '.');
+    }
+
+    public function selectAdvisor(Request $request, $groupId)
+    {
+        // Retrieve group
+        $group = Group::findOrFail($groupId);
+
+        // Logic to select advisor for group (not included)
+
+        // Redirect or show success message
+    }
+
+    // CRUDE ------------------------------------------------------
+
     /**
      * Display a listing of the resource.
      */
@@ -50,8 +95,7 @@ class GroupController extends Controller
             'group_id' => $group->id, // Assign the group_id to the student
         ]);
 
-        // Redirect back with success message
-        return redirect()->back()->with('success', 'Group created successfully!');
+        return redirect()->route('student.addStudent')->with('success', 'Group created successfully!');
     }
 
     /**

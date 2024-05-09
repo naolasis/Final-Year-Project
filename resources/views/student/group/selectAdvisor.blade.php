@@ -11,7 +11,7 @@
             @if (session('success'))
                 <div class="success-credential mt-1">{{ session('success') }}</div>
             @endif
-            <form action="{{ route('student.selectAdvisor', {{--$groupId--}}) }}" method="POST" class="add-committee-form"
+            <form action="{{ route('student.selectAdvisor') }}" method="POST" class="add-committee-form"
                 style="display: block;">
                 @csrf
                 <div class="manage-status">Select Advisor</div>
@@ -20,7 +20,7 @@
                     <select class="form-input-field" name="advisor_id">
                         <option value="" disabled selected>Select Advisor</option>
                         @foreach ($advisors as $advisor)
-                            <option value="{{ $advisor->id }}">{{ $advisor->user_id }}</option>
+                            <option value="{{ $advisor->id }}">{{ $advisor->user->fullname }}</option>
                         @endforeach
                     </select>
                 </div>

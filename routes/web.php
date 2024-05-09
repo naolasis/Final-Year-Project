@@ -23,6 +23,9 @@ Route::resource('notices', NoticeController::class)->only(['store', 'show', 'edi
 
 //groups
 Route::resource('groups', GroupController::class)->only(['store', 'show', 'edit', 'update', 'destroy']);
+Route::post('/groups/add-students', [GroupController::class, 'addStudents'])->name('groups.addStudents');
+Route::post('/groups/select-advisor', [GroupController::class, 'selectAdvisor'])->name('groups.selectAdvisor');
+
 
 //policy
 Route::resource('policies', PolicyController::class)->only(['store', 'show', 'edit', 'update', 'destroy']);
@@ -82,9 +85,9 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/student', [StudentController::class, 'dashboard'])->name('student');
     Route::get('/student/forum', [StudentController::class, 'forum'])->name('student.forum');
-    Route::get('/student/group', [StudentController::class, 'group'])->name('student.group');
-    Route::get('/student/addStudent', [StudentController::class, 'group'])->name('student.addStudent');
-    Route::get('/student/selectAdvisor', [StudentController::class, 'group'])->name('student.selectAdvisor');
     Route::get('/student/view_notice', [StudentController::class, 'viewNotice'])->name('student.view_notice');
     Route::get('/student/upload_report', [StudentController::class, 'uploadReport'])->name('student.upload_report');
+    Route::get('/student/group', [StudentController::class, 'group'])->name('student.group');
+    Route::get('/student/addStudent', [StudentController::class, 'showAddStudentsForm'])->name('student.addStudent');
+    Route::get('/student/selectAdvisor', [StudentController::class, 'showSelectAdvisorForm'])->name('student.selectAdvisor');
 });
