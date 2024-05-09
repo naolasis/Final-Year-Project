@@ -3,14 +3,7 @@
 
 <div class="forum-container">
     <div class="form-container forum">
-        @if ($errors->any())
-            <div class="invalid-credential mt-1">{{ $errors->first() }}</div>
-        @endif
-
-        @if (session('success'))
-            <div class="success-credential mt-1">{{ session('success') }}</div>
-        @endif
-
+        
         <form action="{{ route('reports.store') }}" method="POST" enctype="multipart/form-data" class="add-committee-form" style="display: block;">
             @csrf
             <div class="manage-status">Upload Report</div>
@@ -27,6 +20,13 @@
                 <div class="submit-btn"><input class="submit" type="submit" value="Upload Report"></div>
             </div>
         </form>
+        @if ($errors->any())
+            <div class="invalid-credential mt-1">{{ $errors->first() }}</div>
+        @endif
+        
+        @if (session('success'))
+            <div class="success-credential mt-1">{{ session('success') }}</div>
+        @endif
     </div>
 </div>
 

@@ -31,12 +31,12 @@ class User extends Authenticatable
 
     public function advisor()
     {
-        return $this->hasOne(Committee::class);
+        return $this->hasOne(Advisor::class);
     }
     
     public function student()
     {
-        return $this->hasOne(Committee::class);
+        return $this->hasOne(Student::class);
     }
 
 
