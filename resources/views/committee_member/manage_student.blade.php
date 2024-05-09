@@ -14,12 +14,24 @@
     @if (session('success'))
         <div class="success-credential mt-1">{{ session('success') }}</div>
     @endif
-    <form method="POST" action="{{ route('students.store') }}" enctype="multipart/form-data" class="add-committee-form">
+    {{-- <form method="POST" action="{{ route('students.store') }}" enctype="multipart/form-data" class="add-committee-form">
         @csrf
         <div class="manage-status">Create Student's</div>
         <div class="input-container">
             <div class="submit-btn"><label for="files"></label>Upload Student's Excell File </div>
             <div class="form-input"><input class="form-input-field" id="files" type="file" name="file" accept=".xlsx, .xls, .csv"></div>
+            <div class="submit-btn"><input class="submit" type="submit" value="Submit"></div>
+        </div>
+    </form> --}}
+
+    <form method="POST" action="{{ route('students.store') }}" enctype="multipart/form-data" class="add-committee-form">
+        @csrf
+        <div class="manage-status">Create Student's</div>
+        <div class="input-container">
+            <div class="form-input"><input class="form-input-field" type="text" name="fullname" placeholder="Full Name" required></div>
+            <div class="form-input"><input class="form-input-field" type="email" name="email" placeholder="Email" required></div>
+            <div class="form-input"><input class="form-input-field" type="text" name="username" placeholder="Username" required></div>
+            <div class="form-input"><input class="form-input-field" type="password" name="password" placeholder="Password" required></div>
             <div class="submit-btn"><input class="submit" type="submit" value="Submit"></div>
         </div>
     </form>
