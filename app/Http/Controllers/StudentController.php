@@ -35,6 +35,10 @@ class StudentController extends Controller
         return view('student.group.selectAdvisor', compact('advisors'));
     }
 
+    public function showGroupInfo(){
+        return view('student.group.group_info');
+    }
+
 
     public function viewNotice() {
         $notices = Notice::all(); // Fetch all notices

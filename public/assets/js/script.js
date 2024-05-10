@@ -64,4 +64,21 @@ const modifyCommitteeForm = document.querySelector('.modify-committee-form');
         addCommittee.style.backgroundColor = "white";
     })
 
-
+    // notification dispaly
+    document.addEventListener('DOMContentLoaded', function() {
+        var notification = document.querySelector('.notification');
+        var notificationContent = document.querySelector('.notification-content');
+    
+        notification.addEventListener('click', function(e) {
+            e.stopPropagation(); // Prevent the click event from propagating to the document
+            notificationContent.classList.toggle('show'); // Toggle the visibility of notification content
+        });
+    
+        document.addEventListener('click', function() {
+            notificationContent.classList.remove('show'); // Hide notification content when clicking outside of it
+        });
+    
+        notificationContent.addEventListener('click', function(e) {
+            e.stopPropagation(); // Prevent the click event from propagating to the document
+        });
+    });

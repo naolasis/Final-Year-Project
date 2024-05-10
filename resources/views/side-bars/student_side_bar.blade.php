@@ -14,7 +14,11 @@
             </a>  
            </li>  
            <li class="side-bar-list">
-            @if (auth()->user()->student->group_id == null)
+            @if (auth()->user()->student->hasPendingJoinRequests())
+                <a class="side-bar-link" href="{{ route('join_requests.index') }}">
+            @elseif (auth()->user()->student->receivedJoinRequests()->whereIn('status', ['accepted'])->exists())
+                <a class="side-bar-link" href="{{ route('student.groupInfo') }}">
+            @elseif (auth()->user()->student->group_id == null)
                 <a class="side-bar-link" href="{{ route('student.group') }}">
             @else
                 <a class="side-bar-link" href="{{ route('student.addStudent') }}">

@@ -29,16 +29,21 @@ class GroupController extends Controller
         if (!$receiver) {
             return redirect()->back()->with('error', 'Student not found.');
         }
+        
+        // Check if the receiver already has a pending or accepted join request
+        if ($receiver->receivedJoinRequests()->whereIn('status', ['pending', 'accepted'])->exists()) {
+            return redirect()->back()->with('error', $receiver->user->username . ' already has a pending or accepted join request, or is already in a group.');
+        }
 
         // Create a new join request
         JoinRequest::create([
             'sender_id' => $user->student->id,
             'receiver_id' => $receiver->id,
-            'status' => 'pending', // You can set an initial status for the request
+            'status' => 'pending',
         ]);
 
         
-        return redirect()->back()->with('success', 'Join request sent to the' . $receiver->user->username. '.');
+        return redirect()->back()->with('success', 'Join request sent to ' . $receiver->user->username. '.');
     }
 
     public function selectAdvisor(Request $request, $groupId)

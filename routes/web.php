@@ -9,6 +9,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CommitteeController;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\JoinRequestController;
 use App\Http\Controllers\NoticeController;
 use App\Http\Controllers\PolicyController;
 use App\Http\Controllers\ProjectReportController;
@@ -18,14 +19,17 @@ Route::get('/', function () {
     return view('login');
 });
 
-//notice
-Route::resource('notices', NoticeController::class)->only(['store', 'show', 'edit', 'update', 'destroy']);
+Route::get('join-requests', [JoinRequestController::class, 'index'])->name('join_requests.index');
+Route::post('join-requests/{joinRequest}/accept', [JoinRequestController::class, 'accept'])->name('join_requests.accept');
+Route::post('join-requests/{joinRequest}/reject', [JoinRequestController::class, 'reject'])->name('join_requests.reject');
 
 //groups
 Route::resource('groups', GroupController::class)->only(['store', 'show', 'edit', 'update', 'destroy']);
 Route::post('/groups/add-students', [GroupController::class, 'addStudents'])->name('groups.addStudents');
 Route::post('/groups/select-advisor', [GroupController::class, 'selectAdvisor'])->name('groups.selectAdvisor');
 
+//notice
+Route::resource('notices', NoticeController::class)->only(['store', 'show', 'edit', 'update', 'destroy']);
 
 //policy
 Route::resource('policies', PolicyController::class)->only(['store', 'show', 'edit', 'update', 'destroy']);
@@ -90,4 +94,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/student/group', [StudentController::class, 'group'])->name('student.group');
     Route::get('/student/addStudent', [StudentController::class, 'showAddStudentsForm'])->name('student.addStudent');
     Route::get('/student/selectAdvisor', [StudentController::class, 'showSelectAdvisorForm'])->name('student.selectAdvisor');
+    Route::get('/student/group_info', [StudentController::class, 'showGroupInfo'])->name('student.groupInfo');
+
 });

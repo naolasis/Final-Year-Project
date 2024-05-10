@@ -17,4 +17,15 @@ class Student extends Model
     {
         return $this->belongsTo(Group::class);
     }
+
+    public function hasPendingJoinRequests()
+    {
+        return $this->receivedJoinRequests()->where('status', 'pending')->exists();
+    }
+
+    // Define a relationship to retrieve join requests received by the student.
+    public function receivedJoinRequests()
+    {
+        return $this->hasMany(JoinRequest::class, 'receiver_id');
+    }
 }
