@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Advisor;
 use App\Models\Group;
+use App\Models\JoinRequest;
 use App\Models\Notice;
 use App\Models\Student;
 use App\Models\User;
@@ -26,7 +27,9 @@ class StudentController extends Controller
 
     public function showAddStudentsForm()
     {
-        return view('student.group.addStudents');
+        $counter = 0;
+        $requestStatuses =  JoinRequest::all(); // Fetch all requestStatus
+        return view('student.group.addStudents', compact('requestStatuses', 'counter'));
     }
 
     public function showSelectAdvisorForm()
@@ -36,7 +39,10 @@ class StudentController extends Controller
     }
 
     public function showGroupInfo(){
-        return view('student.group.group_info');
+        $id = auth()->user()->student->group->id;
+        $group = Group::findOrFail($id);
+        $students = Student::with('user')->where('group_id', $id)->get();
+        return view('student.group.group_info', compact('group', 'students'));
     }
 
 

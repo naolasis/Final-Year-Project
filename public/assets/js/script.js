@@ -43,7 +43,56 @@ sideBarLists.forEach(function(sideBarList) {
     });
 });
 
+// notification dispaly
+document.addEventListener("DOMContentLoaded", function () {
+    const notification = document.querySelector(".notification");
+    const notificationContent = document.querySelector(".notification-content");
 
+    notification.addEventListener("click", function (event) {
+        event.stopPropagation(); // Prevents the click event from reaching the document
+
+        if (notificationContent.style.display === "none" || notificationContent.style.display === "") {
+            notificationContent.style.display = "block";
+        } else {
+            notificationContent.style.display = "none";
+        }
+    });
+
+    document.addEventListener("click", function () {
+        notificationContent.style.display = "none"; // Hide content if clicked anywhere else on the document
+    });
+
+    notificationContent.addEventListener("click", function (event) {
+        event.stopPropagation(); // Prevents the click event from reaching the document
+    });
+});
+
+// display modal
+document.addEventListener("DOMContentLoaded", function () {
+    const modalbutton = document.querySelector(".modal-display");
+    const modalContent = document.querySelector(".modal-content");
+
+    modalbutton.addEventListener("click", function (event) {
+        event.stopPropagation(); // Prevents the click event from reaching the document
+
+        if (modalContent.style.display === "none" || modalContent.style.display === "") {
+            modalContent.style.display = "block";
+        } else {
+            modalContent.style.display = "none";
+        }
+    });
+
+    document.addEventListener("click", function () {
+        modalContent.style.display = "none"; // Hide content if clicked anywhere else on the document
+    });
+
+    modalContent.addEventListener("click", function (event) {
+        event.stopPropagation(); // Prevents the click event from reaching the document
+    });
+});
+
+
+// for two button display and hide
 const addCommittee = document.querySelector('.add-committee');
 const modifyCommittee = document.querySelector('.modify-committee');
 const addCommitteeForm = document.querySelector('.add-committee-form');

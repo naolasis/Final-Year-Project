@@ -274,10 +274,6 @@ header{
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.notification:hover .notification-content {
-    display: block;
-}
-
 
 .logout svg{
     width: 22px;
@@ -709,14 +705,14 @@ ul{
     border-bottom: 2px solid var(--sidebar-bg-color);
 }
 
-.table .edit-button {
+.edit-button {
     background-color: #e2b714;
     color: #ffffff;
     padding: 4px 20px;
     text-decoration: none;
 }
 
-.table .delete-button {
+.delete-button {
     background-color: #ca4754;
     color: #ffffff;
     padding: 5px 16px;
@@ -730,6 +726,25 @@ ul{
 }
 
 .action-col {display: flex;}
+
+
+/* modal display */
+.modal-content {
+    display: none;
+    position: absolute;
+    top: 20%; 
+    left: 50%; 
+    transform: translateX(-50%); /* Center it horizontally */
+    background-color: #fff;
+    border: 1px solid #ccc; 
+    padding: 5rem;
+    color: var(--header-color);
+    background: var(--gray-icon-color);
+    border-radius: 10px;
+    box-shadow: var(--box-shadow);
+    transition: .3s;
+    text-align: center;
+}
 
 
 /* ---forum container--- */

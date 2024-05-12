@@ -27,6 +27,8 @@ Route::post('join-requests/{joinRequest}/reject', [JoinRequestController::class,
 Route::resource('groups', GroupController::class)->only(['store', 'show', 'edit', 'update', 'destroy']);
 Route::post('/groups/add-students', [GroupController::class, 'addStudents'])->name('groups.addStudents');
 Route::post('/groups/select-advisor', [GroupController::class, 'selectAdvisor'])->name('groups.selectAdvisor');
+Route::post('/groups/add-creator', [GroupController::class, 'addCreator'])->name('groups.addCreator');
+
 
 //notice
 Route::resource('notices', NoticeController::class)->only(['store', 'show', 'edit', 'update', 'destroy']);

@@ -18,8 +18,8 @@
                     <thead>
                         <tr>
                             <th>Sender</th>
-                            <th>Group</th>
-                            <th>Status</th>
+                            <th>Group Name</th>
+                            <th>Project Title</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -28,7 +28,7 @@
                             <tr>
                                 <td>{{ $joinRequest->sender->user->username }}</td>
                                 <td>{{ $joinRequest->sender->group->group_name }}</td>
-                                <td>{{ ucfirst($joinRequest->status) }}</td>
+                                <td>{{ $joinRequest->sender->group->project_title }}</td>
                                 <td>
                                     <form action="{{ route('join_requests.accept', $joinRequest) }}" method="POST"
                                         style="display: inline-block;">
