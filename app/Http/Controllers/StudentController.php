@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Advisor;
+use App\Models\AdvisorRequest;
 use App\Models\Group;
 use App\Models\JoinRequest;
 use App\Models\Notice;
@@ -28,7 +29,8 @@ class StudentController extends Controller
     public function showAddStudentsForm()
     {
         $counter = 0;
-        $requestStatuses =  JoinRequest::all(); // Fetch all requestStatus
+        $sender_id = auth()->user()->student->id;
+        $requestStatuses =  JoinRequest::where('sender_id', $sender_id)->get();
         return view('student.group.addStudents', compact('requestStatuses', 'counter'));
     }
 
@@ -39,10 +41,19 @@ class StudentController extends Controller
     }
 
     public function showGroupInfo(){
-        $id = auth()->user()->student->group->id;
-        $group = Group::findOrFail($id);
-        $students = Student::with('user')->where('group_id', $id)->get();
-        return view('student.group.group_info', compact('group', 'students'));
+        $thisStudent = auth()->user()->student;
+        $group = $thisStudent->group;
+
+        $joinRequest = JoinRequest::where('receiver_id', $thisStudent->id)->where('status', 'accepted')->first();
+        $senderStudent = $joinRequest->sender;
+        
+        $senderJoinRequest = JoinRequest::where('receiver_id', $senderStudent->id)
+        ->where('sender_id', $senderStudent->id)->where('status', 'accepted')->exists();
+        
+        $students = Student::with('user')->where('group_id', $group->id)->get();
+        $advisorRequest = AdvisorRequest::where('group_id', $group->id)->first();
+        
+        return view('student.group.group_info', compact('group', 'students', 'advisorRequest', 'senderJoinRequest'));
     }
 
 

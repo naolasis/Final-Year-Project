@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Advisor;
+use App\Models\AdvisorRequest;
+use App\Models\Group;
 use App\Models\Notice;
+use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -21,7 +24,14 @@ class AdvisorController extends Controller
     }
 
     public function viewGroup(){
-        return view('advisor.view_group');
+        $user_id = auth()->user()->advisor->id;
+        $advisorRequests = AdvisorRequest::where('advisor_id', $user_id)->get();
+        $requestedGroupIds = $advisorRequests->pluck('group_id');
+        $requestedGroups = Group::whereIn('id', $requestedGroupIds)->get();
+        $otherGroups = Group::whereNotIn('id', $requestedGroupIds)->get();
+        $students = Student::all();
+    
+        return view('advisor.view_group', compact('requestedGroups', 'otherGroups', 'students', 'advisorRequests'));
     }
 
     public function viewReport(){

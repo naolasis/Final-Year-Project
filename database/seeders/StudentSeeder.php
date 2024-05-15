@@ -16,6 +16,8 @@ class StudentSeeder extends Seeder
     public function run(): void
     {
         $user = User::where('username', 'student1')->first();
+        $user1 = User::where('username', 'student2')->first();
+
         
         $group = Group::where('group_name', 'Test Group1')->first();
 
@@ -27,6 +29,14 @@ class StudentSeeder extends Seeder
 
             $student->user_id = $user->id;
             $student->group_id = $group->id;
+            $student->save();
+        }
+        if ($user1) {
+            $student = new Student([
+                // student data
+            ]);
+
+            $student->user_id = $user1->id;
             $student->save();
         }
     }

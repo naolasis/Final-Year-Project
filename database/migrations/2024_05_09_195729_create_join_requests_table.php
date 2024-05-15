@@ -16,11 +16,13 @@ return new class extends Migration
             $table->unsignedBigInteger('sender_id');
             $table->unsignedBigInteger('receiver_id');
             $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');
+           // $table->unsignedBigInteger('group_id');
             $table->timestamps();
 
             // Define foreign key constraints
             $table->foreign('sender_id')->references('id')->on('students')->onDelete('cascade');
             $table->foreign('receiver_id')->references('id')->on('students')->onDelete('cascade');
+           // $table->foreign('group_id')->references('group_id')->on('students')->onDelete('cascade');
         });
     }
 

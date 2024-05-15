@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Group extends Model
@@ -17,5 +16,10 @@ class Group extends Model
     public function advisor()
     {
         return $this->belongsTo(Advisor::class);
+    }
+
+    public function advisorRequests()
+    {
+        return $this->hasMany(AdvisorRequest::class);
     }
 }

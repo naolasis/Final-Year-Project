@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Advisor;
+use App\Models\AdvisorRequest;
 use App\Models\Group;
 use App\Models\JoinRequest;
 use App\Models\Student;
@@ -59,19 +61,27 @@ class GroupController extends Controller
             ]);
         }
 
-
-        
         return redirect()->back()->with('success', 'Join request sent to ' . $receiver->user->username. '.');
     }
 
-    public function selectAdvisor(Request $request, $groupId)
+    public function selectAdvisor(Request $request)
     {
-        // Retrieve group
-        $group = Group::findOrFail($groupId);
+        // Retrieve the selected advisor's ID from the request
+        $advisorId = $request->input('advisor_id');
+        // dd($advisorId); 
+        
+        $group = Group::findOrFail(auth()->user()->student->group_id);
 
-        // Logic to select advisor for group (not included)
+        // Create a new advisor request
+        AdvisorRequest::create([
+            'group_id' => $group->id,
+            'advisor_id' => $advisorId,
+            'advisor_status' => 'pending',
+            'committee_status' => 'pending'
+        ]);
 
         // Redirect or show success message
+        return redirect()->route('student.groupInfo')->with('success', 'Advisor request sent successfully! Wait for approval.');
     }
 
     public function addCreator()
@@ -92,24 +102,49 @@ class GroupController extends Controller
     }
 
 
+    // Advisor Request Related
+
+    public function accept(AdvisorRequest $advisorRequest)
+    {
+        // hasAcceptedJoinRequests
+        // $sender_group_id = $joinRequest->sender->group_id;
+        // $receiver_group_id = $joinRequest->receiver->group_id;
+
+        // Update the join request status to accepted
+        $advisorRequest->update(['status' => 'accepted']);
+
+        // Update the receiver student's group_id
+        $advisorRequest->receiver->update(['group_id' => $advisorRequest->sender->group_id]);
+
+        // Redirect back with success message
+        return redirect()->route('student.groupInfo')->with('success', 'Join request accepted successfully.');
+    }
+    
+    public function reject(AdvisorRequest $advisorRequest)
+    {
+
+        $user = auth()->user();
+        if ($user->student->hasAcceptedJoinRequests()) {
+            return redirect()->route('student.groupInfo');
+        }
+        // Update the join request status to rejected
+        $joinRequest->update(['status' => 'rejected']);
+
+        // Redirect back with success message
+        return redirect()->route('join_requests.index')->with('success', 'Join request rejected.');
+    }
+    
+
+
     // CRUDE ------------------------------------------------------
 
     /**
      * Display a listing of the resource.
      */
-
      public function index()
     {
         //
     }
-
-
-    // public function displayInfo()
-    // {
-    //     $id = auth()->user()->student->group->id;
-    //     $group = Group::findOrFail($id);
-    //     return view('student.groupInfo', compact('group'));
-    // }
 
     /**
      * Store a newly created resource in storage.

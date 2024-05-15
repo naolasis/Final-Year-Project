@@ -91,6 +91,49 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+// advisor group accept or group modal
+document.addEventListener("DOMContentLoaded", function () {
+    const modalButtons = document.querySelectorAll(".group-modal-display");
+    const modals = document.querySelectorAll(".group-modal-content");
+
+    modalButtons.forEach(button => {
+        const targetId = button.getAttribute("data-target");
+        const targetModal = document.querySelector(targetId);
+
+        button.addEventListener("click", function (event) {
+            event.stopPropagation(); // Prevents the click event from reaching the document
+
+            // Hide other modals
+            modals.forEach(modal => {
+                if (modal !== targetModal) {
+                    modal.style.display = "none";
+                }
+            });
+
+            // Toggle the target modal
+            if (targetModal.style.display === "none" || targetModal.style.display === "") {
+                targetModal.style.display = "block";
+            } else {
+                targetModal.style.display = "none";
+            }
+        });
+    });
+
+    document.addEventListener("click", function () {
+        // Hide all modals if clicked anywhere else on the document
+        modals.forEach(modal => {
+            modal.style.display = "none";
+        });
+    });
+
+    modals.forEach(modal => {
+        modal.addEventListener("click", function (event) {
+            event.stopPropagation(); // Prevents the click event from reaching the document
+        });
+    });
+});
+
+
 
 // for two button display and hide
 const addCommittee = document.querySelector('.add-committee');

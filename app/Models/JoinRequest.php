@@ -10,6 +10,7 @@ class JoinRequest extends Model
         'sender_id',
         'receiver_id',
         'status',
+        //'group_id'
     ];
     
     public function sender()

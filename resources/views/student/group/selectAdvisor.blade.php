@@ -11,21 +11,29 @@
             @if (session('success'))
                 <div class="success-credential mt-1">{{ session('success') }}</div>
             @endif
-            <form action="{{ route('student.selectAdvisor') }}" method="POST" class="add-committee-form"
-                style="display: block;">
-                @csrf
+            <div class="add-committee-form" style="display: block;">
                 <div class="manage-status">Select Advisor</div>
-                <div class="input-container">
-                <div class="form-input">
-                    <select class="form-input-field" name="advisor_id">
-                        <option value="" disabled selected>Select Advisor</option>
-                        @foreach ($advisors as $advisor)
-                            <option value="{{ $advisor->id }}">{{ $advisor->user->fullname }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                    <div class="submit-btn"><input class="submit" type="submit" value="Select Advisor"></div>
-            </form>
+                    <div class="input-container">
+                            @foreach ($advisors as $advisor)
+                            <form method="POST" action="{{ route('groups.selectAdvisor') }}">
+                                    @csrf
+                                    <div class="advisor-all">
+                                        <div class="advisor-body">
+                                            <div class="wrap-person-img">
+                                                <img src="{{asset('storage/'.$advisor->user->image)}}" alt="advisor-img">
+                                            </div>
+                                            <div class="advisor-card">
+                                                <h4>{{ $advisor->user->fullname }}</h4>
+                                                <p>{{ $advisor->description }}</p>
+                                                <input type="hidden" name="advisor_id" value="{{ $advisor->id }}">
+                                                <div class="submit-btn"><input class="submit" style="background: #fff; color:#111827;" type="submit" value="Select Advisor"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            @endforeach
+                    </div>
+            </div>
         </div>
     </div>
 @endsection

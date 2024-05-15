@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\JoinRequest;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class JoinRequestController extends Controller
@@ -15,6 +16,10 @@ class JoinRequestController extends Controller
 
     public function accept(JoinRequest $joinRequest)
     {
+        // hasAcceptedJoinRequests
+        $sender_group_id = $joinRequest->sender->group_id;
+        $receiver_group_id = $joinRequest->receiver->group_id;
+
         // Update the join request status to accepted
         $joinRequest->update(['status' => 'accepted']);
 
@@ -27,6 +32,11 @@ class JoinRequestController extends Controller
 
     public function reject(JoinRequest $joinRequest)
     {
+
+        $user = auth()->user();
+        if ($user->student->hasAcceptedJoinRequests()) {
+            return redirect()->route('student.groupInfo');
+        }
         // Update the join request status to rejected
         $joinRequest->update(['status' => 'rejected']);
 

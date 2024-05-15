@@ -3,6 +3,7 @@
 
     <div class="forum-container">
         <div class="form-container forum">
+            
             <h2>Information of group</h2>
             <table class="table">
                     <thead>
@@ -25,19 +26,28 @@
                             </tr>
                             <tr>
                                 <th>Advisor</th>
-                                <td>button</td>
+                                @if (!$advisorRequest)
+                                    @if ($senderJoinRequest)
+                                        <td> <a href="{{ route('student.selectAdvisor') }}" class="submit" style="display: inline-block; padding: 10px; text-decoration: none;">Request Advisor</a> </td>   
+                                    @else
+                                        <td>Wait until all students accepted!</td>
+                                    @endif
+                                @elseif($advisorRequest->advisor_status == 'pending')    
+                                    <td>{{ $advisorRequest->advisor_status }}</td>
+                                @elseif($advisorRequest->advisor_status == 'accepted')    
+                                    <td>{{ $advisorRequest->advisor_status }} but not approved yet</td>
+                                @endif
                             </tr>
                             <tr>
-                                <th>Member Students</th>
-                                @foreach ($students as $student)
+                                <th style="vertical-align: top">Member Students</th>
                                 <td>
-                                    <td>{{ $student->user->fullname }}</td>
+                                    @foreach ($students as $student)
+                                        <p>{{ $student->user->fullname }}</p>
+                                    @endforeach
                                 </td>
-                                @endforeach
                             </tr>
                     </tbody>
                 </table>
-            <!-- <p>You are now a member of {{-- auth()->user()->student->group->group_name --}}</p> -->
         </div>
     </div>
 
