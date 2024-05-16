@@ -106,34 +106,30 @@ class GroupController extends Controller
 
     public function accept(AdvisorRequest $advisorRequest)
     {
-        // hasAcceptedJoinRequests
-        // $sender_group_id = $joinRequest->sender->group_id;
-        // $receiver_group_id = $joinRequest->receiver->group_id;
+        $advisorRequest->update(['advisor_status' => 'accepted']);
+        $advisorRequest->advisor->update(['group_id' => $advisorRequest->sender_group->group_id]);
 
-        // Update the join request status to accepted
-        $advisorRequest->update(['status' => 'accepted']);
-
-        // Update the receiver student's group_id
-        $advisorRequest->receiver->update(['group_id' => $advisorRequest->sender->group_id]);
-
-        // Redirect back with success message
-        return redirect()->route('student.groupInfo')->with('success', 'Join request accepted successfully.');
+        return redirect()->route('advisor.view_group')->with([
+            'success' => 'Group request accepted successfully.',
+            'hasAccepted' => $advisorRequest->advisor->hasAcceptedAdvisorRequests(),
+            'hasRejected' => $advisorRequest->advisor->hasRejectedAdvisorRequests(),
+        ]);
     }
-    
-    public function reject(AdvisorRequest $advisorRequest)
+
+    public function reject(AdvisorRequest $advisorRequest, Request $request)
     {
+        $advisorRequest->update([
+            'advisor_status' => 'rejected',
+            'reject_reason' => $request->input('reject_reason')
+        ]);
 
-        $user = auth()->user();
-        if ($user->student->hasAcceptedJoinRequests()) {
-            return redirect()->route('student.groupInfo');
-        }
-        // Update the join request status to rejected
-        $joinRequest->update(['status' => 'rejected']);
-
-        // Redirect back with success message
-        return redirect()->route('join_requests.index')->with('success', 'Join request rejected.');
+        return redirect()->route('advisor.view_group')->with([
+            'success' => 'Group request rejected.',
+            'hasAccepted' => $advisorRequest->advisor->hasAcceptedAdvisorRequests(),
+            'hasRejected' => $advisorRequest->advisor->hasRejectedAdvisorRequests(),
+        ]);
     }
-    
+        
 
 
     // CRUDE ------------------------------------------------------

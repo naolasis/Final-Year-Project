@@ -731,7 +731,7 @@ ul{
 /* modal display */
 .modal-content {
     display: none;
-    position: sticky;
+    position: absolute;
     top: 20%; 
     left: 50%; 
     transform: translateX(-50%); /* Center it horizontally */

@@ -28,6 +28,11 @@ Route::resource('groups', GroupController::class)->only(['store', 'show', 'edit'
 Route::post('/groups/add-students', [GroupController::class, 'addStudents'])->name('groups.addStudents');
 Route::post('/groups/select-advisor', [GroupController::class, 'selectAdvisor'])->name('groups.selectAdvisor');
 Route::post('/groups/add-creator', [GroupController::class, 'addCreator'])->name('groups.addCreator');
+Route::post('/groups/accept/{advisorRequest}', [GroupController::class, 'accept'])->name('groups.accept');
+Route::post('/groups/reject/{advisorRequest}', [GroupController::class, 'reject'])->name('groups.reject');
+
+
+
 
 
 //notice

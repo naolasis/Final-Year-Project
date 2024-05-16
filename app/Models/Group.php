@@ -15,7 +15,7 @@ class Group extends Model
 
     public function advisor()
     {
-        return $this->belongsTo(Advisor::class);
+        return $this->belongsTo(Advisor::class, 'advisor_id');
     }
 
     public function advisorRequests()

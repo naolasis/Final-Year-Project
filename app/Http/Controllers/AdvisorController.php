@@ -23,7 +23,8 @@ class AdvisorController extends Controller
         return view('advisor.view_notice', compact('notices', 'latestNotice'));
     }
 
-    public function viewGroup(){
+    public function viewGroup()
+    {
         $user_id = auth()->user()->advisor->id;
         $advisorRequests = AdvisorRequest::where('advisor_id', $user_id)->get();
         $requestedGroupIds = $advisorRequests->pluck('group_id');
@@ -31,8 +32,11 @@ class AdvisorController extends Controller
         $otherGroups = Group::whereNotIn('id', $requestedGroupIds)->get();
         $students = Student::all();
     
-        return view('advisor.view_group', compact('requestedGroups', 'otherGroups', 'students', 'advisorRequests'));
-    }
+        $acceptedGroup = $advisorRequests->where('advisor_status', 'accepted')->where('committee_status', 'approved')->first();
+    
+        return view('advisor.view_group', compact('requestedGroups', 'otherGroups', 'students', 'acceptedGroup'));
+    }    
+    
 
     public function viewReport(){
         return view('advisor.view_report');

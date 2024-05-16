@@ -30,7 +30,7 @@ class Student extends Model
 
     public function hasAcceptedJoinRequests()
     {
-        return $this->receivedJoinRequests()->where('status', 'arccepted')->exists();
+        return $this->receivedJoinRequests()->where('status', 'accepted')->exists();
     }
 
     // Define a relationship to retrieve join requests received by the student.
