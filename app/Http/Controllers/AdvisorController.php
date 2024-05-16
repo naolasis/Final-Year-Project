@@ -28,14 +28,15 @@ class AdvisorController extends Controller
         $user_id = auth()->user()->advisor->id;
         $advisorRequests = AdvisorRequest::where('advisor_id', $user_id)->get();
         $requestedGroupIds = $advisorRequests->pluck('group_id');
-        $requestedGroups = Group::whereIn('id', $requestedGroupIds)->get();
         $otherGroups = Group::whereNotIn('id', $requestedGroupIds)->get();
         $students = Student::all();
-    
+        
         $acceptedGroup = $advisorRequests->where('advisor_status', 'accepted')->where('committee_status', 'approved')->first();
-    
-        return view('advisor.view_group', compact('requestedGroups', 'otherGroups', 'students', 'acceptedGroup'));
-    }    
+        // dd($acceptedGroup);
+
+        return view('advisor.view_group', compact('advisorRequests', 'otherGroups', 'students', 'acceptedGroup'));
+    }
+
     
 
     public function viewReport(){
@@ -57,6 +58,11 @@ class AdvisorController extends Controller
             'email' => 'required|email',
             'password' => 'required|string|min:6',
         ]);
+
+        // Check if the username already exists
+        if (User::where('username', $validatedData['username'])->exists()) {
+            return redirect()->back()->withErrors(['username' => 'The username is already taken.']);
+        }
     
         // Hash the password
         $hashedPassword = bcrypt($validatedData['password']);

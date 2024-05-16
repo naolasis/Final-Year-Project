@@ -79,6 +79,11 @@ class StudentController extends Controller
             'password' => 'required|string|min:6',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+        // Check if the username already exists
+        if (User::where('username', $validatedData['username'])->exists()) {
+            return redirect()->back()->withErrors(['username' => 'The username is already taken.']);
+        }
     
         // Hash the password
         $hashedPassword = bcrypt($validatedData['password']);

@@ -14,12 +14,17 @@ class AdvisorRequest extends Model
         'reject_reason',
     ];
 
+    public function group()
+    {
+        return $this->belongsTo(Group::class);
+    }
+
     public function sender_group()
     {
         return $this->belongsTo(Group::class, 'group_id');
     }
 
-    public function receiver_advisor()
+    public function advisor()
     {
         return $this->belongsTo(Advisor::class, 'advisor_id');
     }

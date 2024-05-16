@@ -37,6 +37,11 @@ class CommitteeController extends Controller
             'password' => 'required|string|min:6', // Adjusted validation rule
             'type' => 'required|string|in:committee_head,committee_member', // Adjusted validation rule
         ]);
+
+        // Check if the username already exists
+        if (User::where('username', $validatedData['username'])->exists()) {
+            return redirect()->back()->withErrors(['username' => 'The username is already taken.']);
+        }
     
         // Hash the password
         $hashedPassword = bcrypt($validatedData['password']);
