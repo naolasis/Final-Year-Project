@@ -6,6 +6,7 @@ use App\Models\Advisor;
 use App\Models\AdvisorRequest;
 use App\Models\Group;
 use App\Models\Notice;
+use App\Models\Post;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -43,9 +44,20 @@ class AdvisorController extends Controller
         return view('advisor.view_report');
     }
 
-    public function forum(){
-        return view('advisor.forum');
+    public function forum()
+    {
+        $group = auth()->user()->advisor->groups->first();
+
+        if ($group) {
+            $group_id = $group->id;
+            $posts = Post::where('group_id', $group_id)->with('user')->get();
+            return view('advisor.forum', compact('group', 'posts'));
+        } else {
+            // Handle case where advisor has no groups
+            return view('advisor.forum', ['group' => null, 'posts' => collect()]);
+        }
     }
+
 
     // --------------------------------------
     // for advisor editing

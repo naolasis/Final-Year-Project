@@ -19,12 +19,15 @@ class StudentController extends Controller
         return view('student.dashboard', compact('noticeCount')); // Pass noticeCount to the view
     }
 
-    public function forum(){
+    public function forum()
+    {
         $group_id = auth()->user()->student->group_id;
-        $group = Group::where('id', $group_id);
-        $posts = Post::where('group_id', $group_id);
+        $group = Group::findOrFail($group_id); // Retrieve the actual group instance
+        $posts = Post::where('group_id', $group_id)->with('user')->get(); // Eager load user relationship
+
         return view('student.forum', compact('group', 'posts'));
     }
+
 
     public function group(){
         return view('student.group.createGroup');
@@ -40,13 +43,17 @@ class StudentController extends Controller
 
     public function showSelectAdvisorForm()
     {
-        $advisors = Advisor::all();
+        $advisors = Advisor::whereDoesntHave('groups')->get();
+        
         return view('student.group.selectAdvisor', compact('advisors'));
     }
+
+
 
     public function showGroupInfo(){
         $thisStudent = auth()->user()->student;
         $group = $thisStudent->group;
+
 
         $joinRequest = JoinRequest::where('receiver_id', $thisStudent->id)->where('status', 'accepted')->first();
         $senderStudent = $joinRequest->sender;

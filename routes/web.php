@@ -114,5 +114,6 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function() {
     Route::get('/forum/{group}', [ForumController::class, 'show'])->name('forum.show');
     Route::post('/forum/{group}/post', [ForumController::class, 'post'])->name('forum.post');
+    
 });
 

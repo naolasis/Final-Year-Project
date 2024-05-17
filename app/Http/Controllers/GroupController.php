@@ -203,6 +203,20 @@ class GroupController extends Controller
         $advisorRequest->update([
             'committee_status' => 'rejected'
         ]);
+        
+        // Update the group's advisor_id with the advisor's ID from the request
+        $group = $advisorRequest->group;
+        $group->update([
+            'advisor_id' => $advisorRequest->advisor_id
+        ]);
+
+        // Remove all other advisor requests for the same advisor
+        AdvisorRequest::where('advisor_id', $advisorRequest->advisor_id)
+                    ->where('id', '!=', $advisorRequest->id)
+                    ->delete();
+
+        // Commit the transaction
+        DB::commit();
 
         return redirect()->back()->with('success', 'Rejection rejected successfully.');
     }

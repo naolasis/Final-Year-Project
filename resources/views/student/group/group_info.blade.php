@@ -34,10 +34,14 @@
                             @else
                                 <td>Wait until all students accepted!</td>
                             @endif
+                        @elseif($advisorRequest->committee_status == 'rejected' && $advisorRequest->advisor_status == 'rejected')
+                            <td>{{ $advisorRequest->advisor->user->fullname }}</td>
                         @elseif($advisorRequest->advisor_status == 'rejected')
                             <td><span>You're request is rejected! Wait until the reject approval, to selecte again.</span></td>
                         @elseif($advisorRequest->advisor_status == 'pending')
                             <td>{{ $advisorRequest->advisor_status }}</td>
+                        @elseif($advisorRequest->committee_status == 'approved' && $advisorRequest->advisor_status == 'accepted')
+                            <td>{{ $advisorRequest->advisor->user->fullname }}</td>
                         @elseif($advisorRequest->advisor_status == 'accepted')
                             <td>{{ $advisorRequest->advisor_status }} but not approved yet</td>
                         @endif
