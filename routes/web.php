@@ -32,8 +32,10 @@ Route::post('/groups/add-creator', [GroupController::class, 'addCreator'])->name
 Route::post('/groups/accept/{advisorRequest}', [GroupController::class, 'accept'])->name('groups.accept');
 Route::post('/groups/reject/{advisorRequest}', [GroupController::class, 'reject'])->name('groups.reject');
 
-
-
+Route::post('/groups/acceptApprove/{advisorRequest}', [GroupController::class, 'acceptApprove'])->name('groups.acceptApprove');
+Route::post('/groups/acceptReject/{advisorRequest}', [GroupController::class, 'acceptReject'])->name('groups.acceptReject');
+Route::post('/groups/rejectApprove/{advisorRequest}', [GroupController::class, 'rejectApprove'])->name('groups.rejectApprove');
+Route::post('/groups/rejectReject/{advisorRequest}', [GroupController::class, 'rejectReject'])->name('groups.rejectReject');
 
 
 //notice
