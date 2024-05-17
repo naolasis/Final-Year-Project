@@ -9,6 +9,7 @@ use App\Models\JoinRequest;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class GroupController extends Controller
 {
@@ -128,6 +129,82 @@ class GroupController extends Controller
             'hasAccepted' => $advisorRequest->advisor->hasAcceptedAdvisorRequests(),
             'hasRejected' => $advisorRequest->advisor->hasRejectedAdvisorRequests(),
         ]);
+    }
+
+
+    // Committee Request Approval Related
+    public function acceptApprove(AdvisorRequest $advisorRequest)
+    {
+        // Begin a transaction
+        DB::beginTransaction();
+
+        try {
+            // Approve the current advisor request
+            $advisorRequest->update([
+                'committee_status' => 'approved'
+            ]);
+
+            // Update the group's advisor_id with the advisor's ID from the request
+            $group = $advisorRequest->group;
+            $group->update([
+                'advisor_id' => $advisorRequest->advisor_id
+            ]);
+
+            // Remove all other advisor requests for the same advisor
+            AdvisorRequest::where('advisor_id', $advisorRequest->advisor_id)
+                        ->where('id', '!=', $advisorRequest->id)
+                        ->delete();
+
+            // Commit the transaction
+            DB::commit();
+
+            return redirect()->back()->with('success', 'Advisor request approved and other requests for this advisor removed successfully.');
+
+        } catch (\Exception $e) {
+            // Rollback the transaction in case of error
+            DB::rollBack();
+            return redirect()->back()->with('error', 'There was an error approving the advisor request.');
+        }
+    }
+
+
+
+    public function acceptReject(AdvisorRequest $advisorRequest)
+    {
+        $advisorRequest->update([
+            'committee_status' => 'rejected',
+            'advisor_status' => 'pending'
+        ]);
+
+        $group = $advisorRequest->group;
+        $group->update([
+            'advisor_id' => null
+        ]);
+
+        return redirect()->back()->with('success', 'Advisor request rejected successfully.');
+    }
+
+    public function rejectApprove(AdvisorRequest $advisorRequest)
+    {
+        $advisorRequest->update([
+            'committee_status' => 'approved'
+        ]);
+
+        $group = $advisorRequest->group;
+        $group->update([
+            'advisor_id' => null
+        ]);
+
+        return redirect()->back()->with('success', 'Rejection approved successfully.');
+    }
+
+    public function rejectReject(AdvisorRequest $advisorRequest)
+    {
+        $advisorRequest->update([
+            'committee_status' => 'rejected'
+        ]);
+
+        return redirect()->back()->with('success', 'Rejection rejected successfully.');
     }
         
 

@@ -36,8 +36,8 @@ class CommitteeMemberController extends Controller
     public function viewGroup(){
         $groups = Group::all();
         $students = Student::all();
-        $acceptedRequests = AdvisorRequest::where('advisor_status', 'accepted')->where('committee_status', 'pending');
-        $rejectedRequests = AdvisorRequest::where('advisor_status', 'rejected')->where('committee_status', 'pending');
+        $acceptedRequests = AdvisorRequest::where('advisor_status', 'accepted')->where('committee_status', 'pending')->get();
+        $rejectedRequests = AdvisorRequest::where('advisor_status', 'rejected')->where('committee_status', 'pending')->get();
 
         return view('committee_member.view_group', compact('groups', 'students', 'acceptedRequests', 'rejectedRequests'));
     }

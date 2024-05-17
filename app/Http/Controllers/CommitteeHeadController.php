@@ -35,10 +35,10 @@ class CommitteeHeadController extends Controller
     public function viewGroup(){
         $groups = Group::all();
         $students = Student::all();
-        $acceptedRequests = AdvisorRequest::where('advisor_status', 'accepted')->where('committee_status', 'pending');
-        $rejectedRequests = AdvisorRequest::where('advisor_status', 'rejected')->where('committee_status', 'pending');
+        $acceptedRequests = AdvisorRequest::where('advisor_status', 'accepted')->where('committee_status', 'pending')->get();
+        $rejectedRequests = AdvisorRequest::where('advisor_status', 'rejected')->where('committee_status', 'pending')->get();
 
-        return view('committee_head.view_group', compact('groups', 'students', 'acceptedRequests', 'rejectedRequests'));
+        return view('committee_head.view_group', compact('groups', 'students', 'acceptedRequests', 'rejectedRequests'));    
     }
 
     public function managePolicy(){

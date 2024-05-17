@@ -58,7 +58,7 @@ class StudentController extends Controller
         $advisorRequest = AdvisorRequest::where('group_id', $group->id)->first();
         
         // condition to check if committee_status is rejected
-        if ($advisorRequest && $advisorRequest->committee_status == 'rejected') {
+        if ($advisorRequest && $advisorRequest->advisor_status == 'rejected' && $advisorRequest->committee_status == 'approved') {
             $advisorRequest->delete();
             $advisorRequest = null; 
         }
