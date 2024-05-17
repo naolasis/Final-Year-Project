@@ -7,6 +7,7 @@ use App\Models\AdvisorRequest;
 use App\Models\Group;
 use App\Models\JoinRequest;
 use App\Models\Notice;
+use App\Models\Post;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -19,7 +20,10 @@ class StudentController extends Controller
     }
 
     public function forum(){
-        return view('student.forum');
+        $group_id = auth()->user()->student->group_id;
+        $group = Group::where('id', $group_id);
+        $posts = Post::where('group_id', $group_id);
+        return view('student.forum', compact('group', 'posts'));
     }
 
     public function group(){
@@ -52,6 +56,12 @@ class StudentController extends Controller
         
         $students = Student::with('user')->where('group_id', $group->id)->get();
         $advisorRequest = AdvisorRequest::where('group_id', $group->id)->first();
+        
+        // condition to check if committee_status is rejected
+        if ($advisorRequest && $advisorRequest->committee_status == 'rejected') {
+            $advisorRequest->delete();
+            $advisorRequest = null; 
+        }
         
         return view('student.group.group_info', compact('group', 'students', 'advisorRequest', 'senderJoinRequest'));
     }

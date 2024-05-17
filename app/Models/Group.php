@@ -13,6 +13,17 @@ class Group extends Model
         'advisor_id',
     ];
 
+
+    // forum related
+        // Relationships
+        public function users() {
+            return $this->belongsToMany(User::class);
+        }
+        
+        public function posts() {
+            return $this->hasMany(Post::class);
+        }
+
     public function advisor()
     {
         return $this->belongsTo(Advisor::class, 'advisor_id');

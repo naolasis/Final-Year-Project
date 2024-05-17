@@ -13,6 +13,7 @@ use App\Http\Controllers\JoinRequestController;
 use App\Http\Controllers\NoticeController;
 use App\Http\Controllers\PolicyController;
 use App\Http\Controllers\ProjectReportController;
+use App\Http\Controllers\ForumController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -104,3 +105,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/student/group_info', [StudentController::class, 'showGroupInfo'])->name('student.groupInfo');
 
 });
+
+
+
+
+Route::middleware('auth')->group(function() {
+    Route::get('/forum/{group}', [ForumController::class, 'show'])->name('forum.show');
+    Route::post('/forum/{group}/post', [ForumController::class, 'post'])->name('forum.post');
+});
+

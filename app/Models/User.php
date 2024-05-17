@@ -63,6 +63,16 @@ class User extends Authenticatable
         ];
     }
 
+    // forum related 
+    // Relationships
+     public function posts() {
+        return $this->hasMany(Post::class);
+    }
+    
+    public function groups() {
+        return $this->belongsToMany(Group::class);
+    }
+
     
     // Added for role checking
 

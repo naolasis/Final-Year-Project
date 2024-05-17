@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Advisor;
+use App\Models\AdvisorRequest;
 use App\Models\Committee;
 use App\Models\Group;
 use App\Models\Notice;
@@ -32,7 +33,12 @@ class CommitteeHeadController extends Controller
     }
 
     public function viewGroup(){
-        return view('committee_head.view_group');
+        $groups = Group::all();
+        $students = Student::all();
+        $acceptedRequests = AdvisorRequest::where('advisor_status', 'accepted')->where('committee_status', 'pending');
+        $rejectedRequests = AdvisorRequest::where('advisor_status', 'rejected')->where('committee_status', 'pending');
+
+        return view('committee_head.view_group', compact('groups', 'students', 'acceptedRequests', 'rejectedRequests'));
     }
 
     public function managePolicy(){
