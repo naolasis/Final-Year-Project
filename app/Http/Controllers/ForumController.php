@@ -18,21 +18,17 @@ class ForumController extends Controller
 
     public function post(Request $request, Group $group)
     {
-        $userRole = auth()->user()->role;
         $request->validate(['content' => 'required']);
         
-        $group->posts()->create([
+        $post = $group->posts()->create([
             'user_id' => auth()->id(),
             'content' => $request->content,
         ]);
 
-        if($userRole == 'student') {
-            return redirect()->route('student.forum', $group);
-        }
-        if($userRole == 'advisor') {
-            return redirect()->route('advisor.forum', $group);
-        }
+        // Render the new post as HTML
+        $postHtml = view('partials.forum_post', compact('post'))->render();
 
+        return response()->json(['html' => $postHtml]);
     }
 
 }

@@ -7,6 +7,7 @@ use App\Models\AdvisorRequest;
 use App\Models\Group;
 use App\Models\JoinRequest;
 use App\Models\Notice;
+use App\Models\Policy;
 use App\Models\Post;
 use App\Models\Student;
 use App\Models\User;
@@ -21,12 +22,24 @@ class StudentController extends Controller
 
     public function forum()
     {
-        $group_id = auth()->user()->student->group_id;
-        $group = Group::findOrFail($group_id); // Retrieve the actual group instance
-        $posts = Post::where('group_id', $group_id)->with('user')->get(); // Eager load user relationship
-
-        return view('student.forum', compact('group', 'posts'));
+        $student = auth()->user()->student;
+    
+        if ($student && $student->group_id) {
+            $group_id = $student->group_id;
+            $group = Group::findOrFail($group_id); // Retrieve the actual group instance
+            $posts = Post::where('group_id', $group_id)
+                        ->with('user')
+                        ->orderBy('created_at', 'desc') // Order by created_at in descending order
+                        ->get();
+    
+            return view('student.forum', compact('group', 'posts'));
+        } else {
+            // Handle the case where the student has no group
+            return redirect()->route('student')->with('error', 'No group found. You have to be in a group to open the forum!');
+        }
     }
+    
+
 
 
     public function group(){
@@ -82,6 +95,11 @@ class StudentController extends Controller
 
     public function uploadReport() {
         return view('student.upload_report');
+    }
+
+    public function viewPolicy(){
+        $policies = Policy::all();
+        return view('student.view_policy', compact('policies'));
     }
 
     // --------------------------------------

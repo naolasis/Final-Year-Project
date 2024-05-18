@@ -6,6 +6,7 @@ use App\Models\Advisor;
 use App\Models\AdvisorRequest;
 use App\Models\Group;
 use App\Models\Notice;
+use App\Models\Policy;
 use App\Models\Post;
 use App\Models\Student;
 use App\Models\User;
@@ -47,17 +48,25 @@ class AdvisorController extends Controller
     public function forum()
     {
         $group = auth()->user()->advisor->groups->first();
-
+        
         if ($group) {
             $group_id = $group->id;
-            $posts = Post::where('group_id', $group_id)->with('user')->get();
+            $posts = Post::where('group_id', $group_id)
+                        ->with('user')
+                        ->orderBy('created_at', 'desc') // Order by created_at in descending order
+                        ->get();
+            
             return view('advisor.forum', compact('group', 'posts'));
         } else {
-            // Handle case where advisor has no groups
-            return view('advisor.forum', ['group' => null, 'posts' => collect()]);
+            // Handle the case where the advisor has no groups
+            return redirect()->route('advisor')->with('error', 'No group found. You have to be in a group to open the forum!');
         }
     }
 
+    public function viewPolicy(){
+        $policies = Policy::all();
+        return view('advisor.view_policy', compact('policies'));
+    }
 
     // --------------------------------------
     // for advisor editing

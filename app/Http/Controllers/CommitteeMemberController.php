@@ -7,6 +7,7 @@ use App\Models\AdvisorRequest;
 use App\Models\Committee;
 use App\Models\Group;
 use App\Models\Notice;
+use App\Models\Policy;
 use App\Models\Student;
 use Illuminate\Http\Request;
 
@@ -49,6 +50,11 @@ class CommitteeMemberController extends Controller
 
     public function viewReport(){
         return view('committee_member.view_report');
+    }
+
+    public function viewPolicy(){
+        $policies = Policy::all();
+        return view('committee_member.view_policy', compact('policies'));
     }
 
 }
