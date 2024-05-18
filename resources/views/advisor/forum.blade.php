@@ -15,10 +15,6 @@
             height: 14%;
         }
 
-        .forum-post {
-            background: darkcyan;
-        }
-
         .forum-send-icon {
             align-self: center;
             padding: .3rem;
@@ -108,29 +104,31 @@
 
         .forum-post-text {}
 
-        
-    /* Background color for advisor posts */
-    .advisor-post {
-        background-color: #e0f7fa; /* Light cyan */
-        border: 1px solid #00796b; /* Dark teal */
-    }
+        /* Background color for advisor posts */
+        .advisor-post {
+            background-color: #e0f7fa;
+            /* Light cyan */
+            border: 1px solid #00796b;
+            /* Dark teal */
+        }
 
-    /* Background color for student posts */
-    .student-post {
-        background-color: #fff3e0; /* Light orange */
-        border: 1px solid #ff9800; /* Dark orange */
-    }
+        /* Background color for student posts */
+        .student-post {
+            background-color: #fff3e0;
+            /* Light orange */
+            border: 1px solid #ff9800;
+            /* Dark orange */
+        }
     </style>
+
     <div class="forum-container">
         <div class="manage-status forum-top-bottom">Forum</div>
-        <div class="form-container forum">
-            <div class="add-committee-form" style="display: block;">
-                <div class="forum-section">
-                @foreach ($posts as $post)
-                    @php
-                        // Determine the CSS class based on the user's role
+        <div class="form-container forum" id="forum-posts">
+            @foreach ($posts as $post)
+                @php
                     $postClass = $post->user->role == 'advisor' ? 'advisor-post' : 'student-post';
-                    @endphp
+                @endphp
+                <div class="forum-section">
                     <div class="forum-post {{ $postClass }}">
                         <div class="forum-post-profile">
                             <img src="{{ asset('storage/' . $post->user->image) }}" alt="Profile Picture">
@@ -143,22 +141,54 @@
                             <div class="forum-post-text">{{ $post->content }}</div>
                         </div>
                     </div>
-                @endforeach
-
                 </div>
-            </div>
+            @endforeach
         </div>
 
-        <form action="{{ route('forum.post', $group->id) }}" method="POST" class="forum-top-bottom username login-input">
+        <form id="forum-post-form" method="POST" action="{{ route('forum.post', $group->id) }}">
             @csrf
-            <input type="text" name="content" class="login-input-field" placeholder="Type your message..." required>
-            <button type="submit" class="forum-send-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                    <path
-                        d="M498.1 5.6c10.1 7 15.4 19.1 13.5 31.2l-64 416c-1.5 9.7-7.4 18.2-16 23s-18.9 5.4-28 1.6L284 427.7l-68.5 74.1c-8.9 9.7-22.9 12.9-35.2 8.1S160 493.2 160 480V396.4c0-4 1.5-7.8 4.2-10.7L331.8 202.8c5.8-6.3 5.6-16-.4-22s-15.7-6.4-22-.7L106 360.8 17.7 316.6C7.1 311.3 .3 300.7 0 288.9s5.9-22.8 16.1-28.7l448-256c10.7-6.1 23.9-5.5 34 1.4z" />
-                </svg>
-            </button>
+            <div class="forum-top-bottom username login-input">
+                <input type="text" name="content" class="login-input-field" placeholder="Type your message..." required>
+                <button type="submit" class="forum-send-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <path
+                            d="M498.1 5.6c10.1 7 15.4 19.1 13.5 31.2l-64 416c-1.5 9.7-7.4 18.2-16 23s-18.9 5.4-28 1.6L284 427.7l-68.5 74.1c-8.9 9.7-22.9 12.9-35.2 8.1S160 493.2 160 480V396.4c0-4 1.5-7.8 4.2-10.7L331.8 202.8c5.8-6.3 5.6-16-.4-22s-15.7-6.4-22-.7L106 360.8 17.7 316.6C7.1 311.3 .3 300.7 0 288.9s5.9-22.8 16.1-28.7l448-256c10.7-6.1 23.9-5.5 34 1.4z" />
+                    </svg>
+                </button>
+            </div>
         </form>
     </div>
+
+<!-- Include jQuery or use vanilla JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#forum-post-form').on('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        var content = $('input[name="content"]').val();
+        var token = $('input[name="_token"]').val();
+        var groupId = "{{ $group->id }}"; // Get the group ID from the blade template
+
+        $.ajax({
+            url: "/forum/" + groupId + "/post", // Use the correct route
+            method: 'POST',
+            data: {
+                _token: token,
+                content: content
+            },
+            success: function(response) {
+                // Clear the input field
+                $('input[name="content"]').val('');
+                // Prepend the new post to the forum
+                $('#forum-posts').prepend(response.html);
+            },
+            error: function(response) {
+                alert('An error occurred. Please try again.');
+            }
+        });
+    });
+});
+</script>
 @endsection
 @include('side-bars.advisor_side_bar')

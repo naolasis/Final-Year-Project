@@ -14,6 +14,7 @@ use App\Http\Controllers\NoticeController;
 use App\Http\Controllers\PolicyController;
 use App\Http\Controllers\ProjectReportController;
 use App\Http\Controllers\ForumController;
+use App\Models\Student;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -40,9 +41,6 @@ Route::post('/groups/rejectReject/{advisorRequest}', [GroupController::class, 'r
 
 //notice
 Route::resource('notices', NoticeController::class)->only(['store', 'show', 'edit', 'update', 'destroy']);
-
-//policy
-Route::resource('policies', PolicyController::class)->only(['store', 'show', 'edit', 'update', 'destroy']);
 
 //report
 Route::resource('reports', ProjectReportController::class)->only(['store', 'show', 'edit', 'update', 'destroy']);
@@ -76,6 +74,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/committee_head/manage_notice', [CommitteeHeadController::class, 'manageNotice'])->name('committee_head.manage_notice');
     Route::get('/committee_head/view_report', [CommitteeHeadController::class, 'viewReport'])->name('committee_head.view_report');
     Route::get('/committee_head/upload_result', [CommitteeHeadController::class, 'uploadResult'])->name('committee_head.upload_result');
+    Route::resource('policies', PolicyController::class)->only(['store', 'show', 'edit', 'update', 'destroy']);
 });
 
 Route::middleware('auth')->group(function () {
@@ -85,6 +84,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/committee_member/view_group', [CommitteeMemberController::class, 'viewGroup'])->name('committee_member.view_group');
     Route::get('/committee_member/manage_notice', [CommitteeMemberController::class, 'manageNotice'])->name('committee_member.manage_notice');
     Route::get('/committee_member/view_report', [CommitteeMemberController::class, 'viewReport'])->name('committee_member.view_report');
+    Route::get('/committee_member/view_policy', [CommitteeMemberController::class, 'viewPolicy'])->name('committee_member.view_policy');
 });
 
 Route::middleware('auth')->group(function () {
@@ -93,6 +93,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/advisor/view_group', [AdvisorController::class, 'viewGroup'])->name('advisor.view_group');
     Route::get('/advisor/view_report', [AdvisorController::class, 'viewReport'])->name('advisor.view_report');
     Route::get('/advisor/forum', [AdvisorController::class, 'forum'])->name('advisor.forum');
+    Route::get('/advisor/view_policy', [AdvisorController::class, 'viewPolicy'])->name('advisor.view_policy');
 });
 
 
@@ -105,6 +106,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/student/addStudent', [StudentController::class, 'showAddStudentsForm'])->name('student.addStudent');
     Route::get('/student/selectAdvisor', [StudentController::class, 'showSelectAdvisorForm'])->name('student.selectAdvisor');
     Route::get('/student/group_info', [StudentController::class, 'showGroupInfo'])->name('student.groupInfo');
+    Route::get('/student/view_policy', [StudentController::class, 'viewPolicy'])->name('student.view_policy');
 
 });
 
@@ -114,6 +116,5 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function() {
     Route::get('/forum/{group}', [ForumController::class, 'show'])->name('forum.show');
     Route::post('/forum/{group}/post', [ForumController::class, 'post'])->name('forum.post');
-    
 });
 

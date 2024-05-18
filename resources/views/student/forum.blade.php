@@ -1,5 +1,4 @@
 @extends('layouts.master')
-
 @section('forum')
     <style>
         .content-container {
@@ -105,29 +104,31 @@
 
         .forum-post-text {}
 
-    /* Background color for advisor posts */
-    .advisor-post {
-        background-color: #e0f7fa; /* Light cyan */
-        border: 1px solid #00796b; /* Dark teal */
-    }
+        /* Background color for advisor posts */
+        .advisor-post {
+            background-color: #e0f7fa;
+            /* Light cyan */
+            border: 1px solid #00796b;
+            /* Dark teal */
+        }
 
-    /* Background color for student posts */
-    .student-post {
-        background-color: #fff3e0; /* Light orange */
-        border: 1px solid #ff9800; /* Dark orange */
-    }
-
+        /* Background color for student posts */
+        .student-post {
+            background-color: #fff3e0;
+            /* Light orange */
+            border: 1px solid #ff9800;
+            /* Dark orange */
+        }
     </style>
 
     <div class="forum-container">
         <div class="manage-status forum-top-bottom">Forum</div>
-        <div class="form-container forum">
-            <div class="forum-section">
-                @foreach ($posts as $post)
-                    @php
-                        // Determine the CSS class based on the user's role
+        <div class="form-container forum" id="forum-posts">
+            @foreach ($posts as $post)
+                @php
                     $postClass = $post->user->role == 'advisor' ? 'advisor-post' : 'student-post';
-                    @endphp
+                @endphp
+                <div class="forum-section">
                     <div class="forum-post {{ $postClass }}">
                         <div class="forum-post-profile">
                             <img src="{{ asset('storage/' . $post->user->image) }}" alt="Profile Picture">
@@ -140,12 +141,11 @@
                             <div class="forum-post-text">{{ $post->content }}</div>
                         </div>
                     </div>
-                @endforeach
-
-            </div>
+                </div>
+            @endforeach
         </div>
 
-        <form action="{{ route('forum.post', $group->id) }}" method="POST">
+        <form id="forum-post-form" method="POST" action="{{ route('forum.post', $group->id) }}">
             @csrf
             <div class="forum-top-bottom username login-input">
                 <input type="text" name="content" class="login-input-field" placeholder="Type your message..." required>
@@ -158,6 +158,38 @@
             </div>
         </form>
     </div>
-@endsection
 
-@include('side-bars.advisor_side_bar')
+
+<!-- Include jQuery or use vanilla JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#forum-post-form').on('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        var content = $('input[name="content"]').val();
+        var token = $('input[name="_token"]').val();
+        var groupId = "{{ $group->id }}"; // Get the group ID from the blade template
+
+        $.ajax({
+            url: "/forum/" + groupId + "/post", // Use the correct route
+            method: 'POST',
+            data: {
+                _token: token,
+                content: content
+            },
+            success: function(response) {
+                // Clear the input field
+                $('input[name="content"]').val('');
+                // Prepend the new post to the forum
+                $('#forum-posts').prepend(response.html);
+            },
+            error: function(response) {
+                alert('An error occurred. Please try again.');
+            }
+        });
+    });
+});
+</script>
+@endsection
+@include('side-bars.student_side_bar')
