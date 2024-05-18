@@ -8,6 +8,7 @@ use App\Models\Committee;
 use App\Models\Group;
 use App\Models\Notice;
 use App\Models\Policy;
+use App\Models\ProjectReport;
 use App\Models\Student;
 use Illuminate\Http\Request;
 
@@ -52,7 +53,11 @@ class CommitteeHeadController extends Controller
     }
 
     public function viewReport(){
-        return view('committee_head.view_report');
+        
+        $reports = ProjectReport::all();
+        $groups = Group::all();
+        
+        return view('committee_head.view_report', compact('reports', 'groups'));
     }
 
     public function uploadResult(){

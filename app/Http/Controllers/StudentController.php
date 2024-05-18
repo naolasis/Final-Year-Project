@@ -9,6 +9,7 @@ use App\Models\JoinRequest;
 use App\Models\Notice;
 use App\Models\Policy;
 use App\Models\Post;
+use App\Models\ProjectReport;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -93,8 +94,20 @@ class StudentController extends Controller
         return view('student.view_notice', compact('notices', 'latestNotice'));
     }
 
-    public function uploadReport() {
-        return view('student.upload_report');
+    public function uploadReport()
+    {
+        // Retrieve the logged-in student
+        $student = auth()->user()->student;
+
+        // Check if the student exists and has a group
+        if ($student && $student->group_id) {
+            // Get all reports related to the student's group
+            $reports = ProjectReport::where('group_id', $student->group_id)->get();
+
+            return view('student.upload_report', compact('reports'));
+        }
+        
+        return redirect()->route('student')->with('error', 'Student group information not found.');
     }
 
     public function viewPolicy(){

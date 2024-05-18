@@ -8,6 +8,7 @@ use App\Models\Group;
 use App\Models\Notice;
 use App\Models\Policy;
 use App\Models\Post;
+use App\Models\ProjectReport;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -40,9 +41,20 @@ class AdvisorController extends Controller
     }
 
     
-
     public function viewReport(){
-        return view('advisor.view_report');
+        // Retrieve the logged-in student
+        $advisor = auth()->user()->advisor;
+        $group_id = $advisor->groups->first()->id;
+        
+        // Check if the advisor exists and has a group
+        if ($advisor && $group_id) {
+            // Get all reports related to the advisors's group
+            $reports = ProjectReport::where('group_id', $group_id)->get();
+            
+            return view('advisor.view_report', compact('reports'));
+        }
+
+        return redirect()->route('advisor')->with('error', 'advisor group information not found.');
     }
 
     public function forum()

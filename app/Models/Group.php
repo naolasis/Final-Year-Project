@@ -14,15 +14,15 @@ class Group extends Model
     ];
 
 
-    // forum related
-        // Relationships
-        public function users() {
-            return $this->belongsToMany(User::class);
-        }
-        
-        public function posts() {
-            return $this->hasMany(Post::class);
-        }
+// forum related
+
+    public function users() {
+        return $this->belongsToMany(User::class);
+    }
+    
+    public function posts() {
+        return $this->hasMany(Post::class);
+    }
 
     public function advisor()
     {

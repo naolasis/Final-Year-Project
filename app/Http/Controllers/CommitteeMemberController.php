@@ -8,6 +8,7 @@ use App\Models\Committee;
 use App\Models\Group;
 use App\Models\Notice;
 use App\Models\Policy;
+use App\Models\ProjectReport;
 use App\Models\Student;
 use Illuminate\Http\Request;
 
@@ -49,7 +50,10 @@ class CommitteeMemberController extends Controller
     }
 
     public function viewReport(){
-        return view('committee_member.view_report');
+        $reports = ProjectReport::all();
+        $groups = Group::all();
+        
+        return view('committee_member.view_report', compact('reports', 'groups'));
     }
 
     public function viewPolicy(){
