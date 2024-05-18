@@ -716,6 +716,7 @@ td p {
     padding: 5px 20px;
     text-decoration: none;
     border: none;
+    cursor: pointer;
 }
 
 .delete-button {
@@ -724,6 +725,15 @@ td p {
     padding: 5px 20px;
     margin-left: .25rem;
     border: none;
+    cursor: pointer;
+}
+.download-button {
+    background-color: var(--blue-btn-color);
+    color: #ffffff;
+    padding: 4px 15px;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
 }
 .table .edit-button:hover,

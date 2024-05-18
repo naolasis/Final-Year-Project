@@ -44,6 +44,7 @@ Route::resource('notices', NoticeController::class)->only(['store', 'show', 'edi
 
 //report
 Route::resource('reports', ProjectReportController::class)->only(['store', 'show', 'edit', 'update', 'destroy']);
+Route::get('/reports/download/{id}', [ProjectReportController::class, 'download'])->name('reports.download');
 
 //committee
 Route::resource('committees', CommitteeController::class)->only(['store', 'show', 'edit', 'update', 'destroy']);
@@ -107,7 +108,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/student/selectAdvisor', [StudentController::class, 'showSelectAdvisorForm'])->name('student.selectAdvisor');
     Route::get('/student/group_info', [StudentController::class, 'showGroupInfo'])->name('student.groupInfo');
     Route::get('/student/view_policy', [StudentController::class, 'viewPolicy'])->name('student.view_policy');
-
 });
 
 

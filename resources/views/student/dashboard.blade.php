@@ -1,9 +1,9 @@
 @extends ('layouts.master')
 @section('content')
     @if(session('error'))
-    <div class="invalid-credential mt-1">
-        {{ session('error') }}
-    </div>
+        <div class="invalid-credential mt-1">
+            {{ session('error') }}
+        </div>
     @endif
     <div class="notice-container">
         <div class="notice-icon">

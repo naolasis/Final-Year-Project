@@ -124,11 +124,11 @@
     <div class="forum-container">
         <div class="manage-status forum-top-bottom">Forum</div>
         <div class="form-container forum" id="forum-posts">
-            @foreach ($posts as $post)
-                @php
-                    $postClass = $post->user->role == 'advisor' ? 'advisor-post' : 'student-post';
-                @endphp
-                <div class="forum-section">
+            <div class="forum-section">
+                @foreach ($posts as $post)
+                    @php
+                        $postClass = $post->user->role == 'advisor' ? 'advisor-post' : 'student-post';
+                    @endphp
                     <div class="forum-post {{ $postClass }}">
                         <div class="forum-post-profile">
                             <img src="{{ asset('storage/' . $post->user->image) }}" alt="Profile Picture">
@@ -141,8 +141,8 @@
                             <div class="forum-post-text">{{ $post->content }}</div>
                         </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
         </div>
 
         <form id="forum-post-form" method="POST" action="{{ route('forum.post', $group->id) }}">
@@ -160,36 +160,36 @@
     </div>
 
 
-<!-- Include jQuery or use vanilla JS -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-$(document).ready(function() {
-    $('#forum-post-form').on('submit', function(event) {
-        event.preventDefault(); // Prevent the default form submission
+    <!-- Include jQuery or use vanilla JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#forum-post-form').on('submit', function(event) {
+                event.preventDefault(); // Prevent the default form submission
 
-        var content = $('input[name="content"]').val();
-        var token = $('input[name="_token"]').val();
-        var groupId = "{{ $group->id }}"; // Get the group ID from the blade template
+                var content = $('input[name="content"]').val();
+                var token = $('input[name="_token"]').val();
+                var groupId = "{{ $group->id }}"; // Get the group ID from the blade template
 
-        $.ajax({
-            url: "/forum/" + groupId + "/post", // Use the correct route
-            method: 'POST',
-            data: {
-                _token: token,
-                content: content
-            },
-            success: function(response) {
-                // Clear the input field
-                $('input[name="content"]').val('');
-                // Prepend the new post to the forum
-                $('#forum-posts').prepend(response.html);
-            },
-            error: function(response) {
-                alert('An error occurred. Please try again.');
-            }
+                $.ajax({
+                    url: "/forum/" + groupId + "/post", // Use the correct route
+                    method: 'POST',
+                    data: {
+                        _token: token,
+                        content: content
+                    },
+                    success: function(response) {
+                        // Clear the input field
+                        $('input[name="content"]').val('');
+                        // Prepend the new post to the forum
+                        $('#forum-posts').prepend(response.html);
+                    },
+                    error: function(response) {
+                        alert('An error occurred. Please try again.');
+                    }
+                });
+            });
         });
-    });
-});
-</script>
+    </script>
 @endsection
 @include('side-bars.student_side_bar')

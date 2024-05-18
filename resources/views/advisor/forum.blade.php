@@ -110,6 +110,7 @@
             /* Light cyan */
             border: 1px solid #00796b;
             /* Dark teal */
+            width: 70%;
         }
 
         /* Background color for student posts */
@@ -118,31 +119,32 @@
             /* Light orange */
             border: 1px solid #ff9800;
             /* Dark orange */
+            width: 70%;
         }
     </style>
 
     <div class="forum-container">
         <div class="manage-status forum-top-bottom">Forum</div>
         <div class="form-container forum" id="forum-posts">
-            @foreach ($posts as $post)
-                @php
-                    $postClass = $post->user->role == 'advisor' ? 'advisor-post' : 'student-post';
-                @endphp
-                <div class="forum-section">
-                    <div class="forum-post {{ $postClass }}">
-                        <div class="forum-post-profile">
-                            <img src="{{ asset('storage/' . $post->user->image) }}" alt="Profile Picture">
-                        </div>
-                        <div class="forum-post-data">
-                            <div class="forum-post-info">
-                                <div class="forum-sender-name">{{ $post->user->fullname }}</div>
-                                <div class="forum-post-date">{{ $post->created_at->format('M d, Y H:i') }}</div>
+            <div class="forum-section">
+                @foreach ($posts as $post)
+                    @php
+                        $postClass = $post->user->role == 'advisor' ? 'advisor-post' : 'student-post';
+                    @endphp
+                        <div class="forum-post {{ $postClass }}">
+                            <div class="forum-post-profile">
+                                <img src="{{ asset('storage/' . $post->user->image) }}" alt="Profile Picture">
                             </div>
-                            <div class="forum-post-text">{{ $post->content }}</div>
+                            <div class="forum-post-data">
+                                <div class="forum-post-info">
+                                    <div class="forum-sender-name">{{ $post->user->fullname }}</div>
+                                    <div class="forum-post-date">{{ $post->created_at->format('M d, Y H:i') }}</div>
+                                </div>
+                                <div class="forum-post-text">{{ $post->content }}</div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
         </div>
 
         <form id="forum-post-form" method="POST" action="{{ route('forum.post', $group->id) }}">
