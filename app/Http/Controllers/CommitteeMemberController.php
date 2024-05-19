@@ -61,4 +61,9 @@ class CommitteeMemberController extends Controller
         return view('committee_member.view_policy', compact('policies'));
     }
 
+    public function editProfile() {
+        $user = auth()->user();
+        return view('committee_member.edit_profile', compact('user'));
+    }
+
 }

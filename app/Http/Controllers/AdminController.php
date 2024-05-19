@@ -23,4 +23,9 @@ class AdminController extends Controller
         $committees = Committee::with('user')->get();
         return view('admin.manage_committee', compact('committees'));
     }
+
+    public function editProfile() {
+        $user = auth()->user();
+        return view('admin.edit_profile', compact('user'));
+    }
 }

@@ -44,12 +44,11 @@ class AdvisorController extends Controller
     public function viewReport(){
         // Retrieve the logged-in student
         $advisor = auth()->user()->advisor;
-        $group_id = $advisor->groups->first()->id;
-        
+        $group = $advisor->groups->first();
         // Check if the advisor exists and has a group
-        if ($advisor && $group_id) {
+        if ($advisor && $group) {
             // Get all reports related to the advisors's group
-            $reports = ProjectReport::where('group_id', $group_id)->get();
+            $reports = ProjectReport::where('group_id', $group->id)->get();
             
             return view('advisor.view_report', compact('reports'));
         }
@@ -78,6 +77,11 @@ class AdvisorController extends Controller
     public function viewPolicy(){
         $policies = Policy::all();
         return view('advisor.view_policy', compact('policies'));
+    }
+
+    public function editProfile() {
+        $user = auth()->user();
+        return view('advisor.edit_profile', compact('user'));
     }
 
     // --------------------------------------

@@ -63,4 +63,9 @@ class CommitteeHeadController extends Controller
     public function uploadResult(){
         return view('committee_head.upload_result');
     }
+
+    public function editProfile() {
+        $user = auth()->user();
+        return view('committee_head.edit_profile', compact('user'));
+    }
 }

@@ -115,6 +115,11 @@ class StudentController extends Controller
         return view('student.view_policy', compact('policies'));
     }
 
+    public function editProfile() {
+        $user = auth()->user();
+        return view('student.edit_profile', compact('user'));
+    }
+
     // --------------------------------------
     // for student editing
     public function store(Request $request)

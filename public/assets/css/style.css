@@ -266,12 +266,14 @@ header{
     position: absolute;
     top: 100%; /* Position it below the notification */
     left: 50%; /* Center it horizontally */
-    transform: translateX(-50%); /* Center it horizontally */
+    transform: translateX(-70%); /* Center it horizontally */
     background-color: #fff;
     border: 1px solid #ccc; 
     padding: 10px;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    height: 300px;
 }
 
 
