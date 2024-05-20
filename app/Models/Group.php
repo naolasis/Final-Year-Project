@@ -33,4 +33,9 @@ class Group extends Model
     {
         return $this->hasMany(AdvisorRequest::class);
     }
+
+    public function report()
+    {
+        return $this->hasMany(ProjectReport::class);
+    }
 }

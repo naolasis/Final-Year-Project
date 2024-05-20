@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
@@ -10,30 +11,6 @@ class ProfileController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
     {
         //
     }
@@ -49,7 +26,7 @@ class ProfileController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         // Validate the request data
         $validatedData = $request->validate([
@@ -59,34 +36,55 @@ class ProfileController extends Controller
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $user = auth()->user();
+        $user = auth()->user(); // Get the authenticated user
 
-        dd($user);
+        if (!$user) {
+            return redirect()->back()->with('error', 'User not authenticated.');
+        }
+
+        // Retrieve the user model instance by ID
+        $user = User::find($user->id);
+
+        if (!$user) {
+            return redirect()->back()->with('error', 'User not found.');
+        }
+
+        // Check if the username already exists for another user
+        $usernameExists = User::where('username', $validatedData['username'])
+                            ->where('id', '<>', $user->id)
+                            ->exists();
+
+        if ($usernameExists) {
+            return redirect()->back()->with('error', 'The username is already taken.');
+        }
 
         // Check if an image is uploaded
         if ($request->hasFile('image')) {
-            // Upload the new image
-            $imagePath = $request->file('image')->store('images');
+            try {
+                // Upload the new image
+                $imagePath = $request->file('image')->store('images');
+            } catch (\Exception $e) {
+                return redirect()->back()->with('error', 'Image upload failed: ' . $e->getMessage());
+            }
         } else {
             // Use the old image path if no new image is uploaded
             $imagePath = $user->image;
         }
-        
-        // $user->update([
-        //     'username' => $validatedData['username'],
-        //     'fullname' => $validatedData['fullname'],
-        //     'email' => $validatedData['email'],
-        //     'image' => $imagePath,
-        // ]);
 
-        return redirect()->back()->with('success', 'Advisor updated successfully!');
+        try {
+            // Update the user model directly
+            $user->update([
+                'username' => $validatedData['username'],
+                'fullname' => $validatedData['fullname'],
+                'email' => $validatedData['email'],
+                'image' => $imagePath,
+            ]);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'User update failed: ' . $e->getMessage());
+        }
+
+        return redirect()->back()->with('success', 'Profile updated successfully!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+
 }

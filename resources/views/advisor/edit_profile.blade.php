@@ -6,8 +6,8 @@
             @csrf
             @method('PUT')
             <div class="input-container">
-                @if ($errors->any())
-                <div class="invalid-credential mt-1">{{ $errors->first() }}</div>
+                @if(session('error'))
+                    <div class="invalid-credential mt-1">{{ session('error') }}</div>
                 @endif
         
                 @if (session('success'))

@@ -14,14 +14,16 @@
                         <th>Project Title</th>
                         <td>{{ $group->project_title }}</td>
                     </tr>
-                    @forelse ($reports as $report)
+                    @forelse ($reports as $report)                 
                         <tr>
                             <th>Project Report {{$report->id}}</th>
                             <td>
-                                <p>File Name: {{ $report->file_name }}</p>
-                                <p>Report Type: {{ ucfirst($report->report_type) }}</p>
-                                <p>Upload Date: {{ $report->created_at->format('d-m-Y H:i') }}</p>
-                                <p>Download: <a class="download-button" href="{{ route('reports.download', $report->id) }}">Download</a></p>
+                                @if ($group->id == $report->group_id)
+                                    <p>File Name: {{ $report->file_name }}</p>
+                                    <p>Report Type: {{ ucfirst($report->report_type) }}</p>
+                                    <p>Upload Date: {{ $report->created_at->format('d-m-Y H:i') }}</p>
+                                    <p>Download: <a class="download-button" href="{{ route('reports.download', $report->id) }}">Download</a></p>   
+                                @endif
                             </td>
                         </tr>
                     @empty

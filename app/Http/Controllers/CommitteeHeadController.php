@@ -53,8 +53,7 @@ class CommitteeHeadController extends Controller
     }
 
     public function viewReport(){
-        
-        $reports = ProjectReport::all();
+        $reports = ProjectReport::where('report_type', 'final')->get();
         $groups = Group::all();
         
         return view('committee_head.view_report', compact('reports', 'groups'));
