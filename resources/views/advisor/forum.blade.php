@@ -63,7 +63,12 @@
             display: flex;
             flex-direction: row;
             box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.24);
-        }
+            max-width: 70%;
+            min-width: 30%;
+            width: fit-content;
+            word-wrap: break-word;
+}
+
 
         .forum-post-profile {
             min-width: 3rem;
@@ -104,23 +109,18 @@
 
         .forum-post-text {}
 
-        /* Background color for advisor posts */
         .advisor-post {
-            background-color: #e0f7fa;
-            /* Light cyan */
-            border: 1px solid #00796b;
-            /* Dark teal */
-            width: 70%;
+            background-color: #e0f7fa; /* Light cyan */
+            border: 1px solid #00796b; /* Dark teal */
+            margin-left: auto;
+       }
+
+        .student-post {
+            background-color: #fff3e0; /* Light orange */
+            border: 1px solid #ff9800; /* Dark orange */
+            margin-right: auto;
         }
 
-        /* Background color for student posts */
-        .student-post {
-            background-color: #fff3e0;
-            /* Light orange */
-            border: 1px solid #ff9800;
-            /* Dark orange */
-            width: 70%;
-        }
     </style>
 
     <div class="forum-container">

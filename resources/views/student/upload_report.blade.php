@@ -7,7 +7,9 @@
         @if (session('error'))
             <div class="invalid-credential mt-1">{{ session('error') }}</div>
         @endif
-        
+        @if ($errors->has('report'))
+            <div class="invalid-credential mt-1">{{ $errors->first('report') }}</div>
+        @endif
         @if (session('success'))
             <div class="success-credential mt-1">{{ session('success') }}</div>
         @endif
@@ -17,6 +19,7 @@
             <div class="input-container" style="margin-top: 2rem">
                 <label for="report" style="font-size: .8rem; margin-top:2rem">Upload Report (PDF, DOC, DOCX)</label>
                 <div class="form-input"><input class="form-input-field" type="file" id="report" name="report" accept=".pdf,.doc,.docx" required></div>
+                <label for="report" style="color: #721c24; font-size: .8rem; margin-top:2rem">Final Report can only be uploaded once</label>
                 <div class="form-input">
                     <select class="form-input-field" name="report_type" id="report_type" required>
                         <option value="" disabled selected>Select Report Type</option>
@@ -58,6 +61,8 @@
         </div>
     </div>
 </div>
+
+
 
 
 @endsection

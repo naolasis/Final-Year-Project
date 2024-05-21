@@ -15,7 +15,13 @@
                 </a>
                 <ul class="inner-list">
                     <li class="inner-lists"><a class="side-bar-link" href="{{ route('admin.manage_committee') }}">Manage Committee</a></li>
+                </ul>  
+                <ul class="inner-list">
+                    <li class="inner-lists"><a class="side-bar-link" href="{{ route('committee_member.manage_student') }}">Manage Stduent</a></li>
                 </ul>   
+                <ul class="inner-list">
+                    <li class="inner-lists"><a class="side-bar-link" href="{{ route('committee_member.manage_advisor') }}">Manage Advisors</a></li>
+                </ul>    
            </li>
            <li class="side-bar-list">
             <a class="side-bar-link" href="{{ route('admin.edit_profile') }}">
