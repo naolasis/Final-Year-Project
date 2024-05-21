@@ -3,6 +3,8 @@
     @include('side-bars.committee_head_side_bar')
 @elseif(auth()->user()->isCommitteeMember())
     @include('side-bars.committee_member_side_bar')
+@elseif(auth()->user()->isAdmin())
+    @include('side-bars.admin_side_bar')
 @endif
 
 @section('content')

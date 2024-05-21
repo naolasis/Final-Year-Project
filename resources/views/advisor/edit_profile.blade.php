@@ -17,7 +17,7 @@
                 <div class="form-input"><input class="form-input-field" type="email" name="email" placeholder="Email" value="{{ $user->email }}" required></div>
                 <div class="form-input"><input class="form-input-field" type="text" name="username" placeholder="Username" value="{{ $user->username }}" required></div>
                 <div class="form-input"><input class="form-input-field" id="image-file" type="file" name="image" value="image"></div>
-                <div class="submit-btn"><input class="submit" type="submit" value="Submit"></div>
+                <div class="submit-btn"><input class="submit" type="submit" value="Update"></div>
             </div>
         </form>
     </div>

@@ -16,6 +16,9 @@
             @if ($errors->any())
                 <div class="invalid-credential">{{ $errors->first() }}</div>
             @endif
+            @if (session('status'))
+                <div class="success-credential">{{ session('status') }}</div>
+            @endif
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <label for="username">Username</label>
@@ -30,7 +33,7 @@
                 </div>
                 <div class="submit-btn"><input class="submit" type="submit" value="Login"></div>
             </form>
-            <a class="forget-password" href="#">Forgot Password?</a>
+            <a class="forget-password" href="{{ route('password.request') }}">Forgot Password?</a>
         </div>        
     </div>
     @include('layouts.footer')

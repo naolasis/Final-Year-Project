@@ -24,6 +24,16 @@ class AdminController extends Controller
         return view('admin.manage_committee', compact('committees'));
     }
 
+    public function manageAdvisor(){
+        $advisors = Advisor::with('user')->get();
+        return view('admin.manage_advisor', compact('advisors'));
+    }
+
+    public function manageStudent(){
+        $students = Student::with('user')->get();
+        return view('admin.manage_student', compact('students'));
+    }
+
     public function editProfile() {
         $user = auth()->user();
         return view('admin.edit_profile', compact('user'));

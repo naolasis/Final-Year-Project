@@ -15,12 +15,15 @@ use App\Http\Controllers\PolicyController;
 use App\Http\Controllers\ProjectReportController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\ProfileController;
-use App\Models\Student;
+use App\Http\Controllers\PasswordResetController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('login');
 });
+
+Route::get('password/reset', [PasswordResetController::class, 'showResetForm'])->name('password.request');
+Route::post('password/reset', [PasswordResetController::class, 'reset'])->name('password.reset');
 
 Route::get('join-requests', [JoinRequestController::class, 'index'])->name('join_requests.index');
 Route::post('join-requests/{joinRequest}/accept', [JoinRequestController::class, 'accept'])->name('join_requests.accept');
@@ -69,6 +72,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin');
     Route::get('/admin/manage_committee', [AdminController::class, 'manageCommittee'])->name('admin.manage_committee');
     Route::get('/admin/edit_profile', [AdminController::class, 'editProfile'])->name('admin.edit_profile');
+    Route::get('/admin/manage_advisor', [AdminController::class, 'manageAdvisor'])->name('admin.manage_advisor');
+    Route::get('/admin/manage_student', [AdminController::class, 'manageStudent'])->name('admin.manage_student');
 });
 
 Route::middleware('auth')->group(function () {
