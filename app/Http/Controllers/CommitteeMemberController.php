@@ -43,6 +43,13 @@ class CommitteeMemberController extends Controller
 
         return view('committee_member.view_group', compact('groups', 'students', 'acceptedRequests', 'rejectedRequests'));
     }
+    public function evaluation(){
+        $groups = Group::all();
+        $students = Student::all();
+
+
+        return view('committee_member.evaluation', compact('groups', 'students'));
+    }
 
     public function manageNotice(){
         $notices = Notice::all();

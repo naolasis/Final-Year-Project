@@ -98,6 +98,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/committee_member/view_report', [CommitteeMemberController::class, 'viewReport'])->name('committee_member.view_report');
     Route::get('/committee_member/view_policy', [CommitteeMemberController::class, 'viewPolicy'])->name('committee_member.view_policy');
     Route::get('/committee_member/edit_profile', [CommitteeMemberController::class, 'editProfile'])->name('committee_member.edit_profile');
+    Route::get('/committee_member/evaluation', [CommitteeMemberController::class, 'evaluation'])->name('committee_member.evaluation');
+
 });
 
 Route::middleware('auth')->group(function () {
