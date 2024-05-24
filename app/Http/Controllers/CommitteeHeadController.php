@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Advisor;
 use App\Models\AdvisorRequest;
 use App\Models\Committee;
+use App\Models\Evaluation;
 use App\Models\Group;
 use App\Models\Notice;
 use App\Models\Policy;
@@ -59,8 +60,21 @@ class CommitteeHeadController extends Controller
         return view('committee_head.view_report', compact('reports', 'groups'));
     }
 
-    public function uploadResult(){
-        return view('committee_head.upload_result');
+    public function evaluationResult(){
+        $evaluations = Evaluation::where('final_mark', null)->get();
+        $groups = Group::where();
+        $students = Student::all();
+    
+        return view('committee_head.evaluation_result', compact('groups', 'students', 'evaluations'));
+    }
+    
+
+    public function evaluationResultForm($id){
+        
+        $students = Student::where('group_id', $id)->get();
+        $evaluations = Evaluation::where('group_id', $id)->get();
+
+        return view('committee_head.evaluation_result_form', compact('students', 'evaluations'));
     }
 
     public function editProfile() {

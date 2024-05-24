@@ -8,6 +8,7 @@ use App\Http\Controllers\StudentController;
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CommitteeController;
+use App\Http\Controllers\EvaluationController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\JoinRequestController;
 use App\Http\Controllers\NoticeController;
@@ -62,6 +63,9 @@ Route::resource('students', StudentController::class)->only(['store', 'show', 'e
 //Profile
 Route::resource('users', ProfileController::class)->only(['store', 'show', 'edit', 'update', 'destroy']);
 
+//evaluation
+Route::resource('evaluation', EvaluationController::class)->only(['store', 'show', 'edit', 'update', 'destroy']);
+
 // routes/web.php
 Route::get('/login', [LoginController::class, 'ShowLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
@@ -84,7 +88,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/committee_head/manage_policy', [CommitteeHeadController::class, 'managePolicy'])->name('committee_head.manage_policy');
     Route::get('/committee_head/manage_notice', [CommitteeHeadController::class, 'manageNotice'])->name('committee_head.manage_notice');
     Route::get('/committee_head/view_report', [CommitteeHeadController::class, 'viewReport'])->name('committee_head.view_report');
-    Route::get('/committee_head/upload_result', [CommitteeHeadController::class, 'uploadResult'])->name('committee_head.upload_result');
+    Route::get('/committee_head/evaluation_result', [CommitteeHeadController::class, 'evaluationResult'])->name('committee_head.evaluation_result');
+    Route::get('/committee_head/evaluation_result_form/{id}', [CommitteeHeadController::class, 'evaluationResultForm'])->name('committee_head.evaluation_result_form');
     Route::get('/committee_head/edit_profile', [CommitteeHeadController::class, 'editProfile'])->name('committee_head.edit_profile');
     Route::resource('policies', PolicyController::class)->only(['store', 'show', 'edit', 'update', 'destroy']);
 });
@@ -99,6 +104,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/committee_member/view_policy', [CommitteeMemberController::class, 'viewPolicy'])->name('committee_member.view_policy');
     Route::get('/committee_member/edit_profile', [CommitteeMemberController::class, 'editProfile'])->name('committee_member.edit_profile');
     Route::get('/committee_member/evaluation', [CommitteeMemberController::class, 'evaluation'])->name('committee_member.evaluation');
+    Route::get('/committee_member/evaluation_form/{id}', [CommitteeMemberController::class, 'evaluationForm'])->name('committee_member.evaluation_form');
 
 });
 

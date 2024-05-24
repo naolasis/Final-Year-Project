@@ -51,6 +51,13 @@ class CommitteeMemberController extends Controller
         return view('committee_member.evaluation', compact('groups', 'students'));
     }
 
+    public function evaluationForm($id){
+        
+        $students = Student::where('group_id', $id)->get();
+
+        return view('committee_member.evaluation_form', compact('students'));
+    }
+
     public function manageNotice(){
         $notices = Notice::all();
         return view('committee_member.manage_notice', compact('notices'));
