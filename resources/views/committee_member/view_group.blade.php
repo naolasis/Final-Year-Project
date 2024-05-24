@@ -137,7 +137,7 @@
                     <tr>
                         <th>Advisor</th>
                         @if ($group->advisor_id !== null)
-                            <td>{{ $group->advisor->user->name }}</td>
+                            <td>{{ $group->advisor->user->fullname }}</td>
                         @elseif ($group->advisorRequests->isNotEmpty())
                             @php
                                 $advisorRequest = $group->advisorRequests->first();

@@ -729,7 +729,9 @@ td p {
     border: none;
     cursor: pointer;
 }
-.download-button {
+
+.download-button,
+.evaluate-button {
     background-color: var(--blue-btn-color);
     color: #ffffff;
     padding: 4px 15px;
@@ -738,6 +740,13 @@ td p {
     border-radius: 5px;
     cursor: pointer;
 }
+
+.download-button:hover,
+.evaluate-button:hover {
+    background-color: #0099ff;
+}
+
+
 .table .edit-button:hover,
 .table .delete-button:hover {
     opacity: .8;
