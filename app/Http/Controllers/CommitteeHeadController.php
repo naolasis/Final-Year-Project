@@ -62,7 +62,7 @@ class CommitteeHeadController extends Controller
 
     public function evaluationResult(){
         $evaluations = Evaluation::where('final_mark', null)->get();
-        $groups = Group::where();
+        $groups = Group::all();
         $students = Student::all();
     
         return view('committee_head.evaluation_result', compact('groups', 'students', 'evaluations'));
