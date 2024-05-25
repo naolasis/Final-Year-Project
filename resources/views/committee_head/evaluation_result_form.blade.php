@@ -32,7 +32,7 @@
                         <th>Student Name</th>
                         <th>Member 1 Evaluation (70%)</th>
                         <th>Member 2 Evaluation (70%)</th>
-                        <th>Committee Head Evaluation (30%)</th>
+                        <th>Advisor Group Evaluation (30%)</th>
                         <th>Final Result (100%)</th>
                     </tr>
                 </thead>
@@ -45,13 +45,11 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $student->user->username }}</td>
-                                <td class="committee1-marks" data-student="{{ $student->id }}">{{ $evaluation->committee1_evaluation }}</td>
-                                <td class="committee2-marks" data-student="{{ $student->id }}">{{ $evaluation->committee2_evaluation }}</td>
+                                <td class="committee1-evaluation" data-student="{{ $student->id }}">{{ $evaluation->committee1_evaluation }}</td>
+                                <td class="committee2-evaluation" data-student="{{ $student->id }}">{{ $evaluation->committee2_evaluation }}</td>
+                                <td class="advisor-evaluation" data-student="{{ $student->id }}">{{ $evaluation->advisor_evaluation }}</td>
                                 <td>
-                                    <input type="number" name="total_marks_all[{{ $student->id }}]" min="0" max="30" class="committee-head-input" data-student="{{ $student->id }}" data-weight="30" value="0" required>
-                                </td>
-                                <td>
-                                    <input type="number" name="final_result[{{ $student->id }}]" id="final-result-{{ $student->id }}" readonly value="{{ ($evaluation->committee1_evaluation + $evaluation->committee2_evaluation) / 2 }}" />
+                                    <input type="number" name="final_result[{{ $student->id }}]" id="final-result-{{ $student->id }}" readonly value="{{ ($evaluation->committee1_evaluation + $evaluation->committee2_evaluation) / 2 + $evaluation->advisor_evaluation }}" />
                                 </td>
                             </tr>
                         @endif
@@ -65,27 +63,5 @@
         </form>
     </div>
 </div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const committeeHeadInputs = document.querySelectorAll('.committee-head-input');
-
-    function updateFinalResults() {
-        committeeHeadInputs.forEach(input => {
-            const studentId = input.dataset.student;
-            const committee1Marks = parseFloat(document.querySelector(`.committee1-marks[data-student="${studentId}"]`).innerText) || 0;
-            const committee2Marks = parseFloat(document.querySelector(`.committee2-marks[data-student="${studentId}"]`).innerText) || 0;
-            const committeeHeadMarks = parseFloat(input.value) || 0;
-
-            const finalResult = (committee1Marks + committee2Marks)/2 + committeeHeadMarks;
-            document.getElementById(`final-result-${studentId}`).value = finalResult.toFixed(2);
-        });
-    }
-
-    committeeHeadInputs.forEach(input => {
-        input.addEventListener('input', updateFinalResults);
-    });
-});
-</script>
 
 @endsection

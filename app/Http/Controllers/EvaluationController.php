@@ -15,6 +15,7 @@ class EvaluationController extends Controller
      */
     public function store(Request $request)
     {
+        // If the user is committee_head
         if (auth()->user()->role == 'committee_head') {
             foreach ($request->final_result as $studentId => $finalResult) {
                 $evaluation = Evaluation::firstOrCreate(['student_id' => $studentId]);
@@ -22,6 +23,29 @@ class EvaluationController extends Controller
                 
             }
             return redirect()->route('committee_head.evaluation_result')->with('success', 'Evaluations submitted successfully!');
+            // If the user is advisor
+        } elseif (auth()->user()->role == 'advisor') {
+            $advisor_id = auth()->user()->advisor->id;
+            $group = Group::where('advisor_id', $advisor_id)->first();
+            if ($group) {
+                $evaluations = Evaluation::where('group_id', $group->id)->get();
+                if ($evaluations->isEmpty()) {
+                    $students = Student::where('group_id', $group->id)->get();
+                    foreach ($students as $student) {
+                        $evaluation = Evaluation::firstOrCreate(['student_id' => $student->id], ['group_id' => $group->id]);
+                        $evaluation->update(['advisor_evaluation' => $request->advisor_evaluation]);
+                    }
+                    return redirect()->back()->with('success', 'Evaluations submitted successfully!');
+                } else {
+                    foreach ($evaluations as $evaluation) {
+                        $evaluation->update(['advisor_evaluation' => $request->advisor_evaluation]);
+                    }
+                }
+                return redirect()->back()->with('success', 'Evaluations submitted successfully!');
+
+            } else {
+                return redirect()->back()->with('error', 'no group found for this advisor');
+            }
         } else {
             $committeeMember = auth()->user()->username;
             foreach ($request->total_marks_all as $studentId => $totalMarksAll) {
@@ -33,10 +57,12 @@ class EvaluationController extends Controller
                 if ($committeeMember == 'member1') {
                     $evaluation->update([
                         'committee1_evaluation' => $totalMarksAll,
+                        'group_id' => $group_id,
                     ]);
                 } elseif ($committeeMember == 'member2') {
                     $evaluation->update([
                         'committee2_evaluation' => $totalMarksAll,
+                        'group_id' => $group_id,
                     ]);
                 }
             }

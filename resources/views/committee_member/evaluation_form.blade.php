@@ -1,24 +1,6 @@
 @extends ('layouts.master')
 @include('side-bars.committee_member_side_bar')
 @section('content')
-<style>
-    input[type=number] {
-        width: 100%;
-        max-width: 100px;
-        font-size: 1rem;
-        background: transparent;
-        color: #495057;
-        border: 1px solid #ced4da;
-        border-radius: .25rem;
-        padding: .375rem .75rem;
-        transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-    }
-    input[type=number]:focus {
-        border-color: #81a9d4;
-        outline: 0;
-        box-shadow: 0 0 0 .2rem rgba(105, 144, 175, 0.25);
-    }
-</style>
 
 <div class="group-container">
     <div class="table-container">

@@ -9,6 +9,7 @@ class Evaluation extends Model
     protected $fillable = [
         'student_id',
         'group_id',
+        'advisor_evaluation',
         'committee1_evaluation',
         'committee2_evaluation',
         'final_mark',

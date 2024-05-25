@@ -33,6 +33,13 @@
         }
     </style>
     <div class="forum-container">
+        @if ($errors->any())
+        <div class="invalid-credential mt-1">{{ $errors->first() }}</div>
+        @endif
+
+        @if (session('success'))
+            <div class="success-credential mt-1">{{ session('success') }}</div>
+        @endif
         <div class="form-container forum">
             @if ($acceptedGroup)
                 <h2>Accepted Group</h2>
@@ -68,6 +75,16 @@
                             <td>Approved by Committee</td>
                         </tr>
                     </tbody>
+                </table>
+                <table class="table mt-1">
+                    <form action="{{ route('evaluation.store') }}" method="POST">
+                        @csrf
+                        <tr>
+                            <td>Group Evaluation (30%)</td>
+                            <td><input type="number" name="advisor_evaluation" min="0" max="30" required></td>
+                            <td><button type="submit" class="evaluate-button" style="padding: 1em 1.75em;">Submit Evaluation</button></td>
+                        </tr>
+                    </form>
                 </table>
             @else
                 @if ($advisorRequests->isNotEmpty())

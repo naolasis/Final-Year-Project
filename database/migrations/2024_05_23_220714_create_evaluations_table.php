@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('student_id')->nullable();
             $table->unsignedBigInteger('group_id')->nullable();
+            $table->float('advisor_evaluation')->nullable();
             $table->float('committee1_evaluation')->nullable();
             $table->float('committee2_evaluation')->nullable();
             $table->float('final_mark')->nullable();
