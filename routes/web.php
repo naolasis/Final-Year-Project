@@ -65,6 +65,8 @@ Route::resource('users', ProfileController::class)->only(['store', 'show', 'edit
 
 //evaluation
 Route::resource('evaluation', EvaluationController::class)->only(['store', 'show', 'edit', 'update', 'destroy']);
+// Route::post('/evaluation/storeMark', [EvaluationController::class, 'storeMark'])->name('evaluation.storeMark');
+
 
 // routes/web.php
 Route::get('/login', [LoginController::class, 'ShowLoginForm'])->name('login');
@@ -116,6 +118,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/advisor/forum', [AdvisorController::class, 'forum'])->name('advisor.forum');
     Route::get('/advisor/view_policy', [AdvisorController::class, 'viewPolicy'])->name('advisor.view_policy');
     Route::get('/advisor/edit_profile', [AdvisorController::class, 'editProfile'])->name('advisor.edit_profile');
+    Route::get('/advisor/evaluation', [AdvisorController::class, 'evaluation'])->name('advisor.evaluation');
+
 });
 
 

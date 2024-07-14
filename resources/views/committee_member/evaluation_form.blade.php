@@ -1,4 +1,4 @@
-@extends ('layouts.master')
+@extends('layouts.master')
 @include('side-bars.committee_member_side_bar')
 @section('content')
 
@@ -60,9 +60,7 @@
                     <tr>
                         <th>Documentation Evaluation Criteria</th>
                         <th>Weight</th>
-                        @foreach ($students as $student)
-                            <th>{{ $student->user->username }}</th>
-                        @endforeach
+                        <th>Mark</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -80,24 +78,33 @@
                         <tr>
                             <th>{{ $criterion }}</th>
                             <th>{{ $weight }}%</th>
-                            @foreach ($students as $student)
-                                <td>
-                                    <input type="number" name="documentation[{{ $criterion }}][{{ $student->id }}]" min="0" max="{{ $weight }}" class="documentation-input" data-student="{{ $student->id }}" data-weight="{{ $weight }}" value="0" required>
-                                </td>
-                            @endforeach
+                            <td>
+                                <input type="number" name="documentation[{{ $criterion }}]" min="0" max="{{ $weight }}" class="documentation-input" data-weight="{{ $weight }}" value="0" required>
+                            </td>
                         </tr>
                     @endforeach
                     <tr class="totals">
                         <th>Total Marks</th>
                         <th>20%</th>
+                        <td>
+                            <input type="number" name="total_marks_documentation" id="total-documentation" readonly>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Part I and II Total</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Student</th>
                         @foreach ($students as $student)
-                            <td>
-                                <input type="number" name="total_marks_documentation[{{ $student->id }}]" id="total-documentation-{{ $student->id }}" readonly>
-                            </td>
+                            <th>{{ $student->user->username }}</th>
                         @endforeach
                     </tr>
+                </thead>
+                <tbody>
                     <tr class="totals">
-                        <th>Part I and II Total</th>
                         <th>70%</th>
                         @foreach ($students as $student)
                             <td>
@@ -119,13 +126,13 @@
 document.addEventListener('DOMContentLoaded', function () {
     const criteriaInputs = document.querySelectorAll('.criteria-input');
     const documentationInputs = document.querySelectorAll('.documentation-input');
+    const totalDocumentationInput = document.getElementById('total-documentation');
 
     function updateTotals() {
-        const students = [...new Set([...criteriaInputs, ...documentationInputs].map(input => input.dataset.student))];
+        const students = [...new Set([...criteriaInputs].map(input => input.dataset.student))];
 
         students.forEach(studentId => {
             let totalCriteria = 0;
-            let totalDocumentation = 0;
 
             criteriaInputs.forEach(input => {
                 if (input.dataset.student === studentId) {
@@ -133,14 +140,19 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
 
-            documentationInputs.forEach(input => {
-                if (input.dataset.student === studentId) {
-                    totalDocumentation += parseFloat(input.value) || 0;
-                }
-            });
-
             document.getElementById(`total-criteria-${studentId}`).value = totalCriteria;
-            document.getElementById(`total-documentation-${studentId}`).value = totalDocumentation;
+        });
+
+        let totalDocumentation = 0;
+
+        documentationInputs.forEach(input => {
+            totalDocumentation += parseFloat(input.value) || 0;
+        });
+
+        totalDocumentationInput.value = totalDocumentation;
+
+        students.forEach(studentId => {
+            const totalCriteria = parseFloat(document.getElementById(`total-criteria-${studentId}`).value) || 0;
             document.getElementById(`total-all-${studentId}`).value = totalCriteria + totalDocumentation;
         });
     }

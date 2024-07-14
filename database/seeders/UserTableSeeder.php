@@ -71,6 +71,30 @@ class UserTableSeeder extends Seeder
                 'role' => 'student',
                 'image' => 'images/student.jpg',
             ],
+            [
+                'fullname' => 'Student3',
+                'username' => 'student3',
+                'email' => 'student3@example.com',
+                'password' => Hash::make('student123'),
+                'role' => 'student',
+                'image' => 'images/student.jpg',
+            ],
+            [
+                'fullname' => 'Student4',
+                'username' => 'student4',
+                'email' => 'student4@example.com',
+                'password' => Hash::make('student123'),
+                'role' => 'student',
+                'image' => 'images/student.jpg',
+            ],
+            [
+                'fullname' => 'Student5',
+                'username' => 'student5',
+                'email' => 'student5@example.com',
+                'password' => Hash::make('student123'),
+                'role' => 'student',
+                'image' => 'images/student.jpg',
+            ]
         ];
 
         // Insert the sample users into the database

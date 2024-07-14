@@ -78,6 +78,28 @@ class AdvisorController extends Controller
         $policies = Policy::all();
         return view('advisor.view_policy', compact('policies'));
     }
+    public function evaluation(){
+        $user = auth()->user();
+        $advisor = Advisor::where('user_id', $user->id)->first();
+        
+        if (!$advisor) {
+            // Handle the case where the advisor is not found
+            abort(404, 'Advisor not found');
+        }
+    
+        $group = Group::where('advisor_id', $advisor->id)->first();
+        
+        if (!$group) {
+            // Handle the case where the group is not found
+            abort(404, 'Group not found');
+        }
+    
+        $students = Student::where('group_id', $group->id)->get();
+
+        
+        return view('advisor.document_mark', compact('students'));
+    }
+    
 
     public function editProfile() {
         $user = auth()->user();

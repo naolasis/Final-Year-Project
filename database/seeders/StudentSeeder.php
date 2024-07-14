@@ -17,6 +17,10 @@ class StudentSeeder extends Seeder
     {
         $user = User::where('username', 'student1')->first();
         $user1 = User::where('username', 'student2')->first();
+        $user2 = User::where('username', 'student3')->first();
+        $user3 = User::where('username', 'student4')->first();
+        $user4 = User::where('username', 'student5')->first();
+
 
         
         $group = Group::where('group_name', 'Test Group1')->first();
@@ -37,6 +41,30 @@ class StudentSeeder extends Seeder
             ]);
 
             $student->user_id = $user1->id;
+            $student->save();
+        }
+        if ($user2) {
+            $student = new Student([
+                // student data
+            ]);
+
+            $student->user_id = $user2->id;
+            $student->save();
+        }
+        if ($user3) {
+            $student = new Student([
+                // student data
+            ]);
+
+            $student->user_id = $user3->id;
+            $student->save();
+        }
+        if ($user4) {
+            $student = new Student([
+                // student data
+            ]);
+
+            $student->user_id = $user4->id;
             $student->save();
         }
     }
