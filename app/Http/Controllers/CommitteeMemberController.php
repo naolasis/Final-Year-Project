@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Advisor;
 use App\Models\AdvisorRequest;
 use App\Models\Committee;
+use App\Models\Evaluation;
 use App\Models\Group;
 use App\Models\Notice;
 use App\Models\Policy;
@@ -57,6 +58,31 @@ class CommitteeMemberController extends Controller
 
         return view('committee_member.evaluation_form', compact('students'));
     }
+    // public function evaluationResult(){
+        
+
+    //     return view('committee_member.evaluation_result', compact('students'));
+
+    // }
+
+    public function evaluationResult()
+        {
+            // Check if there are any evaluations with a null final_mark
+            $hasNullFinalMark = Evaluation::whereNull('final_mark')->exists();
+
+            if ($hasNullFinalMark) {
+                // Redirect to the dashboard route with an error message
+                return redirect()->route('committee_member')->with('error', 'The final result should be submitted by the committee head');
+            }
+
+            // Assuming $students is defined and passed correctly
+            $students = Student::all(); // or however you are getting the $students data
+            $groups = Group::all();
+            $evaluations = Evaluation::all();
+
+            return view('committee_member.evaluation_result', compact('students', 'groups', 'evaluations'));
+        }
+
 
     public function manageNotice(){
         $notices = Notice::all();

@@ -107,6 +107,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/committee_member/edit_profile', [CommitteeMemberController::class, 'editProfile'])->name('committee_member.edit_profile');
     Route::get('/committee_member/evaluation', [CommitteeMemberController::class, 'evaluation'])->name('committee_member.evaluation');
     Route::get('/committee_member/evaluation_form/{id}', [CommitteeMemberController::class, 'evaluationForm'])->name('committee_member.evaluation_form');
+    Route::get('/committee_member/evaluation_result', [CommitteeMemberController::class, 'evaluationResult'])->name('committee_member.evaluation_result');
 
 });
 

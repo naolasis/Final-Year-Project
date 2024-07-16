@@ -26,28 +26,7 @@ class EvaluationController extends Controller
             return redirect()->route('committee_head.evaluation_result')->with('success', 'Evaluations submitted successfully!');
             // If the user is advisor
         } elseif (auth()->user()->role == 'advisor') {
-            // $advisor_id = auth()->user()->advisor->id;
-            // $group = Group::where('advisor_id', $advisor_id)->first();
-            // if ($group) {
-            //     $evaluations = Evaluation::where('group_id', $group->id)->get();
-            //     if ($evaluations->isEmpty()) {
-            //         $students = Student::where('group_id', $group->id)->get();
-            //         foreach ($students as $student) {
-            //             $evaluation = Evaluation::firstOrCreate(['student_id' => $student->id], ['group_id' => $group->id]);
-            //             $evaluation->update(['advisor_evaluation' => $request->advisor_evaluation]);
-            //         }
-            //         return redirect()->back()->with('success', 'Evaluations submitted successfully!');
-            //     } else {
-            //         foreach ($evaluations as $evaluation) {
-            //             $evaluation->update(['advisor_evaluation' => $request->advisor_evaluation]);
-            //         }
-            //     }
-            //     return redirect()->back()->with('success', 'Evaluations submitted successfully!');
-
-            // } else {
-            //     return redirect()->back()->with('error', 'no group found for this advisor');
-            // }
-
+          
             $user = auth()->user();
             $advisor = Advisor::where('user_id', $user->id)->first();
 

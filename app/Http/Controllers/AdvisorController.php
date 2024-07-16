@@ -91,7 +91,7 @@ class AdvisorController extends Controller
         
         if (!$group) {
             // Handle the case where the group is not found
-            abort(404, 'Group not found');
+            return redirect()->route('advisor')->with('error', 'No group found. You have to be in a group to open the Document Evaluation!');
         }
     
         $students = Student::where('group_id', $group->id)->get();

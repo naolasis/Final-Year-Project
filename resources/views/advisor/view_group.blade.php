@@ -76,16 +76,6 @@
                         </tr>
                     </tbody>
                 </table>
-                <table class="table mt-1">
-                    <form action="{{ route('evaluation.store') }}" method="POST">
-                        @csrf
-                        <tr>
-                            <td>Group Evaluation (30%)</td>
-                            <td><input type="number" name="advisor_evaluation" min="0" max="30" required></td>
-                            <td><button type="submit" class="evaluate-button" style="padding: 1em 1.75em;">Submit Evaluation</button></td>
-                        </tr>
-                    </form>
-                </table>
             @else
                 @if ($advisorRequests->isNotEmpty())
                     <h2>Requested Groups</h2>
