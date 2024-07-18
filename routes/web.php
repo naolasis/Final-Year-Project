@@ -93,6 +93,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/committee_head/evaluation_result', [CommitteeHeadController::class, 'evaluationResult'])->name('committee_head.evaluation_result');
     Route::get('/committee_head/evaluation_result_form/{id}', [CommitteeHeadController::class, 'evaluationResultForm'])->name('committee_head.evaluation_result_form');
     Route::get('/committee_head/edit_profile', [CommitteeHeadController::class, 'editProfile'])->name('committee_head.edit_profile');
+    Route::get('/committee_head/student_list', [CommitteeHeadController::class, 'studentList'])->name('committee_head.student_list');
     Route::resource('policies', PolicyController::class)->only(['store', 'show', 'edit', 'update', 'destroy']);
 });
 

@@ -34,6 +34,14 @@ class CommitteeHeadController extends Controller
         return view('committee_head.manage_student', compact('students'));
     }
 
+    public function studentList(){
+
+        $students = Student::with('user')->get();
+
+        return view('committee_head.student_list', compact('students'));
+
+    }
+
     public function viewGroup(){
         $groups = Group::all();
         $students = Student::all();

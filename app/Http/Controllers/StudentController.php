@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\StudentsImport;
 use App\Models\Advisor;
 use App\Models\AdvisorRequest;
 use App\Models\Group;
@@ -13,6 +14,8 @@ use App\Models\ProjectReport;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\View\ViewException;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StudentController extends Controller
 {
@@ -122,46 +125,59 @@ class StudentController extends Controller
 
     // --------------------------------------
     // for student editing
+    // public function store(Request $request)
+    // {
+    //     // Validate the request data
+    //     $validatedData = $request->validate([
+    //         'fullname' => 'required|string|max:255',
+    //         'username' => 'required|string|max:255',
+    //         'email' => 'required|email',
+    //         'password' => 'required|string|min:6',
+    //         'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+    //     ]);
+
+    //     // Check if the username already exists
+    //     if (User::where('username', $validatedData['username'])->exists()) {
+    //         return redirect()->back()->withErrors(['username' => 'The username is already taken.']);
+    //     }
+    
+    //     // Hash the password
+    //     $hashedPassword = bcrypt($validatedData['password']);
+
+    //    // Upload the image
+    //    $imagePath = 'images/default_image.png';
+
+    //     // Create a new user record
+    //     $user = User::create([
+    //         'username' => $validatedData['username'],
+    //         'password' => $hashedPassword,
+    //         'role' => 'student',
+    //         'fullname' => $validatedData['fullname'],
+    //         'email' => $validatedData['email'],
+    //         'image' => $imagePath,
+    //     ]);
+
+    //     // Create a new student record
+    //     Student::create([
+    //         'user_id' => $user->id, // Using id of the user created
+    //     ]);
+
+    //     return redirect()->back()->with('success', 'Student created successfully!');
+    // }
+
     public function store(Request $request)
     {
-        // Validate the request data
-        $validatedData = $request->validate([
-            'fullname' => 'required|string|max:255',
-            'username' => 'required|string|max:255',
-            'email' => 'required|email',
-            'password' => 'required|string|min:6',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        // Validate the request
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls',
         ]);
 
-        // Check if the username already exists
-        if (User::where('username', $validatedData['username'])->exists()) {
-            return redirect()->back()->withErrors(['username' => 'The username is already taken.']);
-        }
-    
-        // Hash the password
-        $hashedPassword = bcrypt($validatedData['password']);
+        // Import the file
+        Excel::import(new StudentsImport, $request->file('file'));
 
-       // Upload the image
-       $imagePath = 'images/default_image.png';
-
-        // Create a new user record
-        $user = User::create([
-            'username' => $validatedData['username'],
-            'password' => $hashedPassword,
-            'role' => 'student',
-            'fullname' => $validatedData['fullname'],
-            'email' => $validatedData['email'],
-            'image' => $imagePath,
-        ]);
-
-        // Create a new student record
-        Student::create([
-            'user_id' => $user->id, // Using id of the user created
-        ]);
-
-        return redirect()->back()->with('success', 'Student created successfully!');
+        return redirect()->back()->with('success', 'Students imported successfully!');
     }
-    
+
  
     public function edit(string $id)
     {
