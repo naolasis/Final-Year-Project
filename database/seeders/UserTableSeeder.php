@@ -45,7 +45,7 @@ class UserTableSeeder extends Seeder
                 'email' => 'advisor1@example.com',
                 'password' => Hash::make('advisor123'),
                 'role' => 'advisor',
-                'image' => 'images/advisor.jpg',
+                'image' => 'images/default_image.png',
             ],
             [
                 'fullname' => 'Advisor2',

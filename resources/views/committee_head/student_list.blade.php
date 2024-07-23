@@ -25,7 +25,7 @@
                 @foreach ($students as $student)
                     <tr>
                         <td>{{ $count++ }}</td>
-                        <td>{{ $student->user->full_name }}</td>
+                        <td>{{ $student->user->fullname }}</td>
                         <td>{{ $student->user->email }}</td>
                         <td>{{ $student->user->username }}</td>
                         <td>{{ $student->temp_password}}</td>
